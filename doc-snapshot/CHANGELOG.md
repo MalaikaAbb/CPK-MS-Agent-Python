@@ -8,6 +8,128 @@ Holds the 3 most recent dated entries. When a change lands on a fourth
 date, the oldest entry is dropped. Entries are counted, not aged, so a gap of
 weeks between changes does not expire anything.
 
+## 2026-08-26
+
+### 10:41 UTC — 8 pages, highest severity high
+
+**High — Quickstart**
+
+`/ms-agent-python/quickstart` · route `/quickstart` · under “Quickstart”
+
+15 code lines, 26 prose lines changed. The number of fenced code blocks changed.
+
+````diff
+- body="Add persistent threads and the inspector with the Enterprise Intelligence Platform."
++ body="Add persistent threads and the inspector with CopilotKit Intelligence."
+- <SignupLink surface="docs_microsoft_agent_framework_quickstart_step1">Sign up for a free developer account</SignupLink> on our Enterprise Intelligence Platform to get a license key. You'll use it later to enable persistent threads and the inspector.
++ <SignupLink surface="docs_microsoft_agent_framework_quickstart_step1">Sign up for a free developer account</SignupLink> for CopilotKit Intelligence to get a license key. You'll use it later to enable persistent threads and the inspector.
+- - **Enterprise Intelligence Platform** — persistent threads and the inspector. Choose **Yes** to scaffold a project pre-wired for the platform (the CLI walks you through sign-up, or you can [create an account](https://dashboard.operations.copilotkit.ai/?utm_source=docs&utm_medium=cta&utm_campaign=intelligence&utm_content=docs_cli_prompt) first), or **No** for a standard Microsoft Agent Framework setup.
++ - **CopilotKit Intelligence** — persistent threads and the inspector. Choose **Yes** to scaffold a project pre-wired for the platform (the CLI walks you through sign-up, or you can [create an account](https://dashboard.operations.copilotkit.ai/?utm_source=docs&utm_medium=cta&utm_campaign=intelligence&utm_content=docs_cli_prompt) first), or **No** for a standard Microsoft Agent Framework setup.
++ CopilotKitIntelligence,
+- InMemoryAgentRunner,
+````
+
+**High — Overview**
+
+`/ms-agent-python/threads` · route `/threads` · under “Get started”
+
+6 code lines, 2 headings, 24 prose lines changed.
+
+````diff
+- Create a new CopilotKit app connected to cloud-hosted Enterprise Intelligence. Your application and CopilotKit Runtime run locally while Enterprise Intelligence stores and synchronizes Rich Threads.
++ Create a new CopilotKit app connected to cloud-hosted CopilotKit Intelligence. Your application and CopilotKit Runtime run locally while CopilotKit Intelligence stores and synchronizes Rich Threads.
+- Enterprise Intelligence.
++ CopilotKit Intelligence.
+- sign-in and Enterprise Intelligence project selection when needed. Use the
++ sign-in and CopilotKit Intelligence project selection when needed. Use the
+- manual Enterprise Intelligence environment configuration. Do not set up a local
++ manual CopilotKit Intelligence environment configuration. Do not set up a local
+````
+
+**Medium — Copilot Runtime**
+
+`/ms-agent-python/copilot-runtime` · route `/copilot-runtime` · under “Enterprise Intelligence Platform”
+
+2 headings, 2 prose lines changed.
+
+````diff
+- ### Enterprise Intelligence Platform
++ ### CopilotKit Intelligence
+- Features like [threads](/ms-agent-python/threads) and the [inspector](/ms-agent-python/inspector) are provided through the runtime and the Enterprise Intelligence Platform. These give you conversation persistence and debugging capabilities out of the box.
++ Features like [threads](/ms-agent-python/threads) and the [inspector](/ms-agent-python/inspector) are provided through the runtime and CopilotKit Intelligence. These give you conversation persistence and debugging capabilities out of the box.
+````
+
+**Medium — Headless Threads**
+
+`/ms-agent-python/headless-threads` · route `/threads/headless` · under “What is this?”
+
+2 headings, 14 prose lines changed.
+
+````diff
+- CopilotKit Rich Threads enable persistent, resumable multi-turn conversations. The `useThreads` hook lists, creates, renames, archives, and deletes Enterprise Intelligence Platform threads with realtime synchronization via WebSocket. Threads work with any agent framework — the Enterprise Intelligence Platform stores conversation history server-side, so users can close their browser and pick up where they left off. It does not list or mutate native LangGraph, ADK, or other framework stores unless your backend explicitly bridges those systems. Thread metadata updates (renames, archives, new threads) appear on connected clients without polling.
++ CopilotKit Rich Threads enable persistent, resumable multi-turn conversations. The `useThreads` hook lists, creates, renames, archives, and deletes CopilotKit Intelligence threads with realtime synchronization via WebSocket. Threads work with any agent framework — CopilotKit Intelligence stores conversation history server-side, so users can close their browser and pick up where they left off. It does not list or mutate native LangGraph, ADK, or other framework stores unless your backend explicitly bridges those systems. Thread metadata updates (renames, archives, new threads) appear on connected clients without polling.
+- title="Threads run on the Enterprise Intelligence Platform"
++ title="Threads run in CopilotKit Intelligence"
+- - A CopilotKit application connected to Enterprise Intelligence
++ - A CopilotKit application connected to CopilotKit Intelligence
+- Enterprise Intelligence. To move historical Google ADK or LangGraph
++ CopilotKit Intelligence. To move historical Google ADK or LangGraph
+````
+
+**Low — Introduction**
+
+`/ms-agent-python` · routes `/`, `/doc-sync` · under “Introduction”
+
+2 prose lines changed.
+
+````diff
+- body="Add persistent threads and the inspector with the Enterprise Intelligence Platform."
++ body="Add persistent threads and the inspector with CopilotKit Intelligence."
+````
+
+**Low — AG-UI**
+
+`/ms-agent-python/ag-ui` · route `/ag-ui` · under “The proxy pattern”
+
+2 prose lines changed.
+
+````diff
+- routing, and CopilotKit Enterprise Intelligence without changing how the
++ routing, and CopilotKit Intelligence without changing how the
+````
+
+**Low — Threads Drawer**
+
+`/ms-agent-python/prebuilt-components/copilot-threads-drawer` · route `/threads/drawer` · under “When should I use this?”
+
+4 prose lines changed.
+
+````diff
+- It requires the Enterprise Intelligence Platform (threads are stored and synced
++ It requires CopilotKit Intelligence (threads are stored and synced
+- title="Threads run on the Enterprise Intelligence Platform"
++ title="Threads run in CopilotKit Intelligence"
+````
+
+**Low — Thread & History Lifecycle**
+
+`/ms-agent-python/threads-lifecycle` · route `/threads/lifecycle` · under “The lifecycle at a glance”
+
+12 prose lines changed.
+
+````diff
+- 2. **Run.** Messages and tool calls stream under that `threadId`. If a server-side store is configured (the Enterprise Intelligence Platform, or a persisting `AgentRunner`), they are persisted as they happen so the thread can be replayed later. A runtime with no persistence layer keeps nothing server-side. See [Threads & Persistence Architecture](/ms-agent-python/premium/threads-explained) for the full server-side model.
++ 2. **Run.** Messages and tool calls stream under that `threadId`. If a server-side store is configured (CopilotKit Intelligence, or a persisting `AgentRunner`), they are persisted as they happen so the thread can be replayed later. A runtime with no persistence layer keeps nothing server-side. See [Threads & Persistence Architecture](/ms-agent-python/premium/threads-explained) for the full server-side model.
+- Replay requires a **server-side store to replay from**: the Enterprise Intelligence Platform, or a persisting `AgentRunner` (e.g. the SQLite runner). A self-hosted runtime with no persistence layer has nothing to replay, so `connectAgent()` returns an empty stream and the conversation starts blank. If history isn't restoring, check that a store is configured, not the client code. The [Persistence Architecture](/ms-agent-python/premium/threads-explained) page covers how replay works server-side.
++ Replay requires a **server-side store to replay from**: CopilotKit Intelligence, or a persisting `AgentRunner` (e.g. the SQLite runner). A self-hosted runtime with no persistence layer has nothing to replay, so `connectAgent()` returns an empty stream and the conversation starts blank. If history isn't restoring, check that a store is configured, not the client code. The [Persistence Architecture](/ms-agent-python/premium/threads-explained) page covers how replay works server-side.
+- Enterprise Intelligence combines that application user identity with the
++ CopilotKit Intelligence combines that application user identity with the
+- | **CopilotKit threads** | Conversation list + full AG-UI event history (messages, tool calls, state), with realtime sync | The Enterprise Intelligence Platform, via `useThreads` |
++ | **CopilotKit threads** | Conversation list + full AG-UI event history (messages, tool calls, state), with realtime sync | CopilotKit Intelligence, via `useThreads` |
+````
+
+---
+
 ## 2026-08-24
 
 ### 07:45 UTC — 6 pages, highest severity high
@@ -116,6 +238,8 @@ weeks between changes does not expire anything.
 
 ---
 
+---
+
 ## 2026-08-20
 
 ### 11:18 UTC — 4 pages, highest severity none
@@ -135,19 +259,3 @@ against:
 untracked — see README §8.
 
 ---
-
-## 2026-08-17
-
-### 13:46 UTC — 1 page, highest severity low
-
-**Low — Readables** · _local snapshot edit, not an upstream change_
-
-`/ms-agent-python/agent-app-context` · route `/readables` · under “Implementation”
-
-3 prose lines changed.
-
-````diff
-- 
-+ Check out the [Frontend Data
-+ documentation](/integrations/langgraph/agent-app-context)
-````
