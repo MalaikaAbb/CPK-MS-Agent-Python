@@ -1,5 +1,6 @@
 import { type Page } from 'playwright';
-import { humanClick, humanGlide, sleep } from '../core/overlays/cursor';
+import { beat, humanClick, humanGlide, sleep } from '../core/overlays/cursor';
+import { humanType } from '../core/overlays/human';
 import { type PageActionHandler, type PageRecordConfig } from '../core/types';
 import { waitForAgentResponseCompletion } from '../core/actions';
 
@@ -15,7 +16,7 @@ export const runProgrammaticAction: PageActionHandler = async (
       await humanGlide(page, dmBox.x + dmBox.width / 2, dmBox.y + dmBox.height / 2, 20);
       await humanClick(page);
       console.log(`   Clicked Dark Mode!`);
-      await sleep(1500);
+      await beat(1500);
     }
   }
 
@@ -32,9 +33,7 @@ export const runProgrammaticAction: PageActionHandler = async (
   await sleep(200);
 
   // Clear and type prompt
-  await page.keyboard.press('Control+A');
-  await page.keyboard.press('Backspace');
-  await page.keyboard.type(config.prompt, { delay: 25 });
+  await humanType(page, config.prompt);
   await sleep(300);
 
   // Click "Run agent" button explicitly

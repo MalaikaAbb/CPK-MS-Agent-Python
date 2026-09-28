@@ -1,5 +1,6 @@
 import { type Page } from 'playwright';
-import { humanClick, humanGlide, sleep } from '../core/overlays/cursor';
+import { beat, humanClick, humanGlide, sleep } from '../core/overlays/cursor';
+import { humanType } from '../core/overlays/human';
 import { ensureClearOfTaskbar } from '../core/overlays/taskbar';
 import { type PageActionHandler, type PageRecordConfig } from '../core/types';
 
@@ -30,7 +31,7 @@ export const runHeadlessUiAction: PageActionHandler = async (
     state: 'visible',
     timeout: 15000,
   });
-  await sleep(800);
+  await beat(800);
 
   const inputLocator = page
     .locator('input[placeholder="Type a message..."], input')
@@ -59,7 +60,7 @@ export const runHeadlessUiAction: PageActionHandler = async (
 
   // Type the prompt visibly
   console.log(`   [Headless UI] Typing prompt: "${config.prompt}"...`);
-  await page.keyboard.type(config.prompt, { delay: 35 });
+  await humanType(page, config.prompt);
   await sleep(350);
 
   // Ensure input state is populated
@@ -86,7 +87,7 @@ export const runHeadlessUiAction: PageActionHandler = async (
   }
 
   // Double check if submit went through
-  await sleep(800);
+  await beat(800);
   const remaining = await inputLocator.inputValue().catch(() => '');
   if (remaining.trim().length > 0) {
     await page.keyboard.press('Enter');

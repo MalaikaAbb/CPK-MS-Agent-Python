@@ -22,65 +22,70 @@
  *
  * Pass that returned count into waitForAgentResponseCompletion on multi-turn
  * pages, or the previous turn's reply is mistaken for this one's.
+ *
+ * The fourth argument, `ctx`, is how a handler reports what it saw:
+ *
+ *   ctx.warn('Language panel still reads "english"')   -> [PASS*] with the note
+ *   ctx.fail('Approve button never rendered')           -> [FAIL], clip still saved
+ *
+ * A `console.log` reaches nobody: the summary and the results file only see
+ * what goes through `ctx`.
  */
 
-import { type PageActionHandler, type PageRecordConfig } from '../core/types';
+import { type ActionContext, type PageActionHandler, type PageRecordConfig } from '../core/types';
 import { runStandardAction } from '../core/actions';
 import { type Page } from 'playwright';
 
-import { runAgUiAction } from './ag-ui.action';
-import { runReadablesAction } from './readables.action';
-import { runAuthAction } from './auth.action';
-import { runDisplayOnlyAction } from './display-only.action';
-import { runFrontendToolsAction } from './frontend-tools.action';
+import { runA2uiAction } from './a2ui.action';
+import { runGovernedActionsAction } from './governed-actions.action';
 import { runHeadlessUiAction } from './headless-ui.action';
-import { runHitlAction } from './hitl.action';
 import { runInspectorAction } from './inspector.action';
+import { runJevAction } from './jev.action';
+import { runMarkdownAction } from './markdown.action';
 import { runPrebuiltAction } from './prebuilt.action';
 import { runProgrammaticAction } from './programmatic.action';
 import { runRuntimeAction } from './runtime.action';
-import {
-  runSharedStateReadAction,
-  runSharedStateWriteAction,
-} from './shared-state.action';
+import { runSharedStateWriteAction } from './shared-state.action';
 import { runSlotsAction } from './slots.action';
-import { runStateRenderingAction } from './state-rendering.action';
 import {
   runThreadsDrawerAction,
   runThreadsHeadlessAction,
   runThreadsLifecycleAction,
 } from './threads.action';
-import { runToolRenderingAction } from './tool-rendering.action';
 
 /** Keys are page ids from `config/pages.config.ts`. Doctor flags any orphans. */
+/**
+ * Pages that need code. Every page not listed here runs `runStandardAction`,
+ * driven by its `demo` block in pages.config.ts -- which is where the glide
+ * targets and the render checks for display-only, interactive, tool/state
+ * rendering, frontend tools, shared-state read, readables, auth and ag-ui now
+ * live.
+ */
 export const ACTION_MAP: Record<string, PageActionHandler> = {
-  quickstart: runStandardAction,
   'prebuilt-components': runPrebuiltAction,
   slots: runSlotsAction,
+  markdown: runMarkdownAction,
   'headless-ui': runHeadlessUiAction,
+  // No chat and no agent on this page: the Jev decision layer is absent, so
+  // the handler drives the published form and the prepared controls instead.
+  'jev-generative-ui': runJevAction,
   'programmatic-control': runProgrammaticAction,
   inspector: runInspectorAction,
-  'display-only': runDisplayOnlyAction,
-  interactive: runHitlAction,
-  'tool-rendering': runToolRenderingAction,
-  'state-rendering': runStateRenderingAction,
-  'frontend-tools': runFrontendToolsAction,
-  'in-app-agent-read': runSharedStateReadAction,
+  'human-in-the-loop-governed-actions': runGovernedActionsAction,
   'in-app-agent-write': runSharedStateWriteAction,
-  readables: runReadablesAction,
-  auth: runAuthAction,
   'threads-drawer': runThreadsDrawerAction,
   'threads-headless': runThreadsHeadlessAction,
   'threads-lifecycle': runThreadsLifecycleAction,
   'copilot-runtime': runRuntimeAction,
-  'ag-ui': runAgUiAction,
+  'a2ui-fixed-schema': runA2uiAction,
 };
 
 export async function executePageAction(
   page: Page,
   config: PageRecordConfig,
   rootPath: string,
+  ctx: ActionContext,
 ): Promise<void> {
   const handler = ACTION_MAP[config.id] ?? runStandardAction;
-  await handler(page, config, rootPath);
+  await handler(page, config, rootPath, ctx);
 }

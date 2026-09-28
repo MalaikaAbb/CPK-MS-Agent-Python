@@ -3,19 +3,17 @@
 > Turn your Microsoft Agent Framework agent into an agent-native application in 10 minutes.
 
 
-<OpsPlatformCTA
-  variant="card"
-  title="Ship Microsoft Agent Framework to production"
-  body="Add persistent threads and the inspector with CopilotKit Intelligence."
-  ctaLabel="Create a free account"
-  surface="docs_microsoft_agent_framework_quickstart"
-/>
+## Start with your coding agent
+
+Use this prompt to connect your Microsoft Agent Framework agent to CopilotKit and verify a working conversation. Your coding agent will follow this guide in your project, or you can work through the manual steps below.
+
+Ask your coding agent to follow the setup steps on this page for your selected framework and frontend.
 
 ## Prerequisites
 
 Before you begin, you'll need the following:
 
-- A GitHub Personal Access Token (for GitHub Models API - free AI access)
+- An [OpenAI API key](https://platform.openai.com/api-keys) for the .NET starter
 - .NET 9.0 SDK or later
 - Node.js 20+
 - Your favorite package manager (npm, pnpm, yarn, or bun)
@@ -24,9 +22,9 @@ Before you begin, you'll need the following:
 
 <Steps>
     <Step>
-        ### Create a free account
+        ### Set up CopilotKit Intelligence
 
-        <SignupLink surface="docs_microsoft_agent_framework_quickstart_step1">Sign up for a free developer account</SignupLink> for CopilotKit Intelligence to get a license key. You'll use it later to enable persistent threads and the inspector.
+        <SignupLink surface="docs_microsoft_agent_framework_quickstart_step1">Sign in to cloud-hosted Intelligence</SignupLink>. Cloud-hosted setup uses a server-side project API key and does not issue `COPILOTKIT_LICENSE_TOKEN`. You will connect the app after you create it below.
     </Step>
 
     <Step>
@@ -90,27 +88,17 @@ Before you begin, you'll need the following:
 
                 <Tabs groupId="language_microsoft-agent-framework_agent" items={['.NET', 'Python']} persist>
                     <Tab value=".NET">
-                        The starter template uses GitHub Models API for free access to AI models. Set up your GitHub token:
+                        The .NET starter uses OpenAI. Save your API key as a .NET user secret:
 
-                        First, get your GitHub token (requires [GitHub CLI](https://github.com/cli/cli)):
-                        ```bash
-                        gh auth token
-                        ```
-
-                        Then navigate to the agent directory and set it as a user secret:
                         ```bash
                         cd agent
-                        dotnet user-secrets set GitHubToken "$(gh auth token)"
+                        dotnet user-secrets set OPENAI_API_KEY "<your-openai-api-key>"
                         cd ..
                         ```
 
                         <Callout type="info" title="Want to use a different model provider?">
-                          The starter template is configured to use GitHub Models (free), but you can modify it to use:
-                          - OpenAI directly
-                          - Azure OpenAI
-                          - Any other model supported by Microsoft Agent Framework
-
-                          Check the `agent/Program.cs` file to customize the model configuration.
+                          Edit `agent/Program.cs` to use Azure OpenAI or another
+                          [Microsoft Agent Framework model provider](https://learn.microsoft.com/en-us/agent-framework/integrations/by-component/model-providers/).
                         </Callout>
                     </Tab>
                     <Tab value="Python">
@@ -175,9 +163,8 @@ Before you begin, you'll need the following:
                         ```bash
                         dotnet new web -n AGUIServer
                         cd AGUIServer
-                        dotnet add package Microsoft.Agents.AI.Hosting.AGUI.AspNetCore --version 1.0.0-preview.251110.1
-                        dotnet add package Microsoft.Extensions.AI.OpenAI --version 9.10.2-preview.1.25552.1
-                        dotnet add package OpenAI --version 2.6.0
+                        dotnet add package Microsoft.Agents.AI.Hosting.AGUI.AspNetCore --version 1.19.0-preview.260822.1
+                        dotnet add package Microsoft.Agents.AI.OpenAI --version 1.19.0
                         dotnet user-secrets init
                         ```
 
@@ -187,38 +174,31 @@ Before you begin, you'll need the following:
                         using Microsoft.Agents.AI;
                         // [!code highlight:1]
                         using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
-                        using Microsoft.Extensions.AI;
                         using OpenAI;
+                        using OpenAI.Chat;
 
                         var builder = WebApplication.CreateBuilder(args);
                         // [!code highlight:1]
-                        builder.Services.AddAGUI();
+                        builder.Services.AddAGUIServer();
                         var app = builder.Build();
 
-                        // Get your GitHub token for GitHub Models (free)
-                        var githubToken = builder.Configuration["GitHubToken"]!;
-                        var openAI = new OpenAIClient(
-                            new System.ClientModel.ApiKeyCredential(githubToken),
-                            new OpenAIClientOptions {
-                                Endpoint = new Uri("https://models.inference.ai.azure.com")
-                            });
+                        var openAiApiKey = builder.Configuration["OPENAI_API_KEY"]
+                            ?? throw new InvalidOperationException("Set OPENAI_API_KEY");
+                        var openAI = new OpenAIClient(openAiApiKey);
 
-                        var chatClient = openAI.GetChatClient("gpt-5.4-mini").AsIChatClient();
-                        var agent = new ChatClientAgent(
-                            chatClient,
+                        var agent = openAI.GetChatClient("gpt-5.4-mini").AsAIAgent(
                             name: "MyAgent",
-                            description: "You are a helpful assistant.");
+                            instructions: "You are a helpful assistant.");
 
                         // [!code highlight:1]
-                        app.MapAGUI("/", agent);
+                        app.MapAGUIServer("/", agent);
                         app.Run("http://localhost:8000");
                         ```
 
-                        Then just setup the environment and run your agent:
+                        Set the key, then run the agent:
 
                         ```bash
-                        # Set your GitHub token and run
-                        dotnet user-secrets set GitHubToken "$(gh auth token)"
+                        dotnet user-secrets set OPENAI_API_KEY "<your-openai-api-key>"
                         dotnet run
                         ```
                     </Tab>
@@ -232,7 +212,7 @@ Before you begin, you'll need the following:
                         uv add agent-framework-ag-ui python-dotenv uvicorn agent-framework-openai
                         ```
                         Create a minimal FastAPI server that exposes a Microsoft Agent Framework agent over AG-UI:
-                        Replace main.py file with the following 
+                        Replace main.py file with the following
 
                         ```python title="main.py"
                         from __future__ import annotations
@@ -345,7 +325,7 @@ Before you begin, you'll need the following:
                   },
                   // [!code highlight:8]
                   intelligence: new CopilotKitIntelligence({
-                    apiKey: process.env.INTELLIGENCE_API_KEY!,
+                    apiKey: process.env.CPK_INTELLIGENCE_API_KEY!,
                   }),
                   // Threads are per-user. Without this, every visitor shares one history.
                   identifyUser: (request) => ({
@@ -364,18 +344,23 @@ Before you begin, you'll need the following:
                 export const POST = handler;
                 ```
 
-                The runtime reads the license key from step 1. Add it to the app that serves
-                this route:
+                From this frontend app directory, connect the runtime to an Intelligence project:
 
-                ```plaintext title=".env.local"
-                INTELLIGENCE_API_KEY=your_license_key
+                ```bash title="Terminal"
+                npx copilotkit@latest project select
+                ```
+
+                The command writes the server-side project API key to `.env`. The runtime reads it here:
+
+                ```plaintext title=".env"
+                CPK_INTELLIGENCE_API_KEY=cpk-...
                 ```
 
                 <Callout type="info" title="Running without the Intelligence Platform?">
                   Drop the `intelligence` and `identifyUser` options and the runtime falls back
                   to SSE mode with an in-memory runner. Chat still works, but Threads and the
                   Inspector stay locked and the key is never read. See
-                  [Connect your runtime to Intelligence](/ms-agent-python/premium/connect-your-runtime) for the
+                  [Connect your runtime to Intelligence](/ms-agent-python/intelligence/quickstart) for the
                   full constructor and how to confirm the key is in use.
                 </Callout>
             </Step>
@@ -385,8 +370,25 @@ Before you begin, you'll need the following:
                 Next, wrap your application with the CopilotKit provider so that CopilotKit can take control across your application
                 via the Microsoft Agent Framework agent.
 
+                ```tsx title="app/providers.tsx"
+                "use client";
+
+                import { CopilotKit } from "@copilotkit/react-core/v2";
+
+                export function Providers({ children }: { children: React.ReactNode }) {
+                  return (
+                    <CopilotKit runtimeUrl="/api/copilotkit" agent="my_agent" useSingleEndpoint={false}>
+                      {children}
+                    </CopilotKit>
+                  );
+                }
+                ```
+
+                `app/layout.tsx` is a server component and cannot import the provider
+                directly, so it renders your client file instead:
+
                 ```tsx title="app/layout.tsx"
-                import { CopilotKit } from "@copilotkit/react-core/v2"; // [!code highlight]
+                import { Providers } from "./providers"; // [!code highlight]
                 import "@copilotkit/react-core/v2/styles.css";
                 import './globals.css';
 
@@ -395,9 +397,9 @@ Before you begin, you'll need the following:
                     <html lang="en">
                       <body>
                         {/* [!code highlight:3] */}
-                        <CopilotKit runtimeUrl="/api/copilotkit" agent="my_agent" useSingleEndpoint={false}>
+                        <Providers>
                           {children}
-                        </CopilotKit>
+                        </Providers>
                       </body>
                     </html>
                   );
@@ -491,14 +493,14 @@ Before you begin, you'll need the following:
                 **Agent Connection Issues**
                 - If you see "I'm having trouble connecting to my tools", make sure:
                   - The C# agent is running on port 8000
-                  - Your GitHub token is set correctly via user secrets
+                  - Your OpenAI API key is set via .NET user secrets
                   - Both servers started successfully (check terminal output)
 
-                **GitHub Token Issues**
-                - If the agent fails with "GitHubToken not found":
+                **OpenAI API Key Issues**
+                - If the agent fails with "OPENAI_API_KEY not found":
                   ```bash
                   cd agent
-                  dotnet user-secrets set GitHubToken "$(gh auth token)"
+                  dotnet user-secrets set OPENAI_API_KEY "<your-openai-api-key>"
                   ```
 
                 **.NET SDK Issues**
@@ -529,7 +531,7 @@ On localhost, click the Inspector button in the corner of the app.
 
 1. Open **Agents**, then **Agent**. Your agent is listed.
 2. Send a chat message. Open **Agents**, then **AG-UI Events**. Events are moving.
-3. Open **Threads**. The list is unlocked (Intelligence is on), or locked with Enable Intelligence (Intelligence is off).
+3. Open **Rich Threads**. The list is unlocked (Intelligence is on), or locked with Enable Intelligence (Intelligence is off).
 
 More detail: [Inspector](/ms-agent-python/inspector).
 

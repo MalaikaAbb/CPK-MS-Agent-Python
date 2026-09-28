@@ -3,22 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3020",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "record": "npm --prefix ../autorecording run record"
+    "record": "npm --prefix ../autorecorder run record"
   },
   "dependencies": {
-    "@ag-ui/client": "^0.0.58",
-    "@copilotkit/react-core": "^1.69.2",
-    "@copilotkit/runtime": "^1.69.2",
+    "@ag-ui/client": "0.0.59",
+    "@copilotkit/a2ui-renderer": "^1.73.3",
+    "@copilotkit/react-core": "^1.73.3",
+    "@copilotkit/runtime": "^1.73.3",
     "next": "16.3.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "server-only": "^0.0.1",
     "shiki": "^4.4.3",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "zod-v3": "npm:zod@^3.25.75"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

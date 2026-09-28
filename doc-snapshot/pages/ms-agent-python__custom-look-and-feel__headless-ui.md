@@ -1,4 +1,4 @@
-# Fully Headless UI
+# Headless UI
 
 > Fully customize your Copilot's UI from the ground up using headless UI
 
@@ -203,4 +203,4 @@ export const Chat = () => {
 };
 ```
 
-See [Human-in-the-Loop](/microsoft-agent-framework/human-in-the-loop) for more details on approval workflows.
+See [Human-in-the-Loop](/microsoft-agent-framework/human-in-the-loop) for more details on approval workflows. When the approval belongs to a backend tool, mark that tool as approval-gated and render it with [`useInterrupt`](/microsoft-agent-framework/human-in-the-loop/interrupt-flow) instead of matching its name here.

@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { BackendHealth } from "@/components/backend-health";
 import { RouteHeader } from "@/components/route-header";
+import { SourceCode } from "@/components/source-code";
 import { Callout, KeyValue, Panel, TryIt } from "@/components/ui";
 import { DOCS_ROOT, NAV } from "@/lib/nav-config";
 import { DocSyncedAt } from "@/components/doc-synced-at";
@@ -68,13 +69,16 @@ export default function Page() {
         <BackendHealth />
       </Panel>
 
-      <Panel title="The three agents">
+      <Panel title="The four agents">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          The backend serves three AG-UI endpoints rather than one.{" "}
+          The backend serves four AG-UI endpoints rather than one.{" "}
           <code>state_schema</code> is a property of the agent it is attached to,
           and the docs define two different schemas — <code>language</code> on
           the Shared State pages and <code>searches</code> on State Rendering.
-          One agent cannot carry both without departing from the samples.
+          One agent cannot carry both without departing from the samples. The
+          fourth arrived with the 2026-09-04 drift: Agent App Context now
+          publishes its own <code>AgentFrameworkAgent</code> subclass, which
+          carries no schema and cannot share the Shared State agent.
         </p>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[36rem] text-left text-sm">
@@ -88,7 +92,7 @@ export default function Page() {
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               <tr>
                 <td className="py-2 pr-4 font-mono text-xs">my_agent</td>
-                <td className="py-2 pr-4 font-mono text-xs">:8000/</td>
+                <td className="py-2 pr-4 font-mono text-xs">:8020/</td>
                 <td className="py-2 text-slate-600 dark:text-slate-400">
                   <code>get_weather</code> · Quickstart, Tool Rendering, and every
                   route with no state schema
@@ -96,16 +100,23 @@ export default function Page() {
               </tr>
               <tr>
                 <td className="py-2 pr-4 font-mono text-xs">sample_agent</td>
-                <td className="py-2 pr-4 font-mono text-xs">:8000/sample_agent</td>
+                <td className="py-2 pr-4 font-mono text-xs">:8020/sample_agent</td>
                 <td className="py-2 text-slate-600 dark:text-slate-400">
-                  <code>update_language</code> · Shared State read/write, Readables
+                  <code>update_language</code> · Shared State read/write
                 </td>
               </tr>
               <tr>
                 <td className="py-2 pr-4 font-mono text-xs">search_agent</td>
-                <td className="py-2 pr-4 font-mono text-xs">:8000/search_agent</td>
+                <td className="py-2 pr-4 font-mono text-xs">:8020/search_agent</td>
                 <td className="py-2 text-slate-600 dark:text-slate-400">
                   <code>update_searches</code> · State Rendering
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4 font-mono text-xs">context_agent</td>
+                <td className="py-2 pr-4 font-mono text-xs">:8020/context_agent</td>
+                <td className="py-2 text-slate-600 dark:text-slate-400">
+                  no tools · Agent App Context (<code>ContextAwareAgent</code>)
                 </td>
               </tr>
             </tbody>
@@ -140,6 +151,34 @@ export default function Page() {
           <Callout tone="info">
             The model provider key lives only in the agent process. The browser
             never holds it, because it never talks to the agent directly.
+          </Callout>
+        </div>
+      </Panel>
+
+      <Panel
+        title="The landing page's own runtime route"
+        description="New with the 2026-09-21 sync: the doc landing page now publishes a route.ts. Mounted as published at /api/copilotkit-landing; no page here points a provider at it."
+      >
+        <SourceCode file="frontend/src/app/api/copilotkit-landing/route.ts" />
+        <div className="mt-4 space-y-3">
+          <Callout tone="warn" title="A plain route.ts cannot serve this handler">
+            The snippet is titled <code>app/api/copilotkit/route.ts</code>, but
+            the handler it mounts is the multi-route one. The Quickstart and the
+            Copilot Runtime page both put the same handler at{" "}
+            <code>app/api/copilotkit/[[...slug]]/route.ts</code>, and the latter
+            says why: the runtime has to serve sub-routes such as{" "}
+            <code>/info</code>. A plain <code>route.ts</code> receives its exact
+            path only, and at @copilotkit/runtime 1.69.2 the handler answers the
+            bare base path with 404 for both verbs it exports.
+          </Callout>
+          <Callout tone="warn" title="AGENT_URL is never defined">
+            The agent URL is read from <code>process.env.AGENT_URL!</code>. No
+            tracked page tells the reader to set it: the Quickstart hardcodes{" "}
+            <code>http://localhost:8000/</code> and its env blocks carry model
+            keys only. The non-null assertion hides the gap from the compiler
+            and <code>HttpAgent</code> accepts an undefined URL, so the first
+            symptom is a failed run rather than a startup error. It is left
+            unset here.
           </Callout>
         </div>
       </Panel>

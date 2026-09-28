@@ -107,7 +107,18 @@ export const NAV: NavGroup[] = [
         summary:
           "Replacing chat sub-components at three levels: class strings, prop overrides, and whole components.",
         status: "working",
+      },
+      {
+        path: "/custom-look-and-feel/markdown",
+        hasDemo: true,
+        title: "Markdown Rendering",
+        docPath: "/ms-agent-python/custom-look-and-feel/markdown",
+        summary:
+          "The markdownRenderer slot on the assistant message: a Streamdown components map, a class string, and a replacement renderer.",
+        status: "working",
         offNav: true,
+        statusNote:
+          "All three published snippets ship verbatim and all three typecheck. The page is live and in the sitemap but absent from the section sidebar, which lists only Slots and Headless UI under Custom Look and Feel.",
       },
       {
         path: "/custom-look-and-feel/headless-ui",
@@ -117,7 +128,6 @@ export const NAV: NavGroup[] = [
         summary:
           "A chat interface built from scratch on the headless hooks, with no CopilotKit chrome.",
         status: "working",
-        offNav: true,
       },
       {
         path: "/programmatic-control",
@@ -178,6 +188,44 @@ export const NAV: NavGroup[] = [
           "Streaming agent state to the UI: a searches list kept in sync through predict_state_config.",
         status: "working",
       },
+      {
+        path: "/generative-ui/a2ui/fixed-schema",
+        hasDemo: true,
+        title: "A2UI · Fixed Schema",
+        docPath: "/ms-agent-python/generative-ui/a2ui/fixed-schema",
+        summary:
+          "A hand-authored component tree the agent never generates: display_flight ships only the data model.",
+        status: "working",
+      },
+      {
+        path: "/generative-ui/a2ui/styling",
+        title: "A2UI · Styling",
+        docPath: "/ms-agent-python/generative-ui/a2ui/styling",
+        summary:
+          "Theming A2UI surfaces through CSS custom properties scoped to the .a2ui-surface class.",
+        status: "not-started",
+        statusNote:
+          "Tracked for drift only — no demo yet. Fixed Schema A2UI now gives the repo a surface, so this page has become implementable; the theming custom properties it documents are not wired up. DeepAgentspy-react implements the same page if a comparison is needed.",
+      },
+      {
+        path: "/generative-ui/a2ui/advanced",
+        title: "A2UI · Advanced",
+        docPath: "/ms-agent-python/generative-ui/a2ui/advanced",
+        summary:
+          "Replacing the built-in render_a2ui progress indicator and wiring frontend action handlers.",
+        status: "not-started",
+        statusNote:
+          "Tracked for drift only — no demo yet. It builds on Dynamic Schema A2UI, which this repo does not map — only the fixed-schema half. DeepAgentspy-react implements the same page.",
+      },
+      {
+        path: "/generative-ui/frontend-cards",
+        title: "Frontend Cards",
+        docPath: "/ms-agent-python/generative-ui/frontend-cards",
+        summary:
+          "Insert a card into the chat transcript from frontend code without an agent tool call.",
+        status: "not-started",
+        statusNote: "Tracked for drift only — no demo yet.",
+      },
     ],
   },
   {
@@ -191,6 +239,45 @@ export const NAV: NavGroup[] = [
         summary:
           "A tool the agent calls that executes in the browser, forwarded automatically over AG-UI.",
         status: "working",
+      },
+      {
+        path: "/webmcp",
+        title: "WebMCP",
+        docPath: "/ms-agent-python/webmcp",
+        summary:
+          "Publishing an existing frontend tool to document.modelContext so WebMCP-aware browser agents can discover and call it.",
+        status: "not-started",
+        statusNote:
+          "Tracked for drift only — no demo yet. The page’s own verification steps need Chrome 149+ with the WebMCP origin trial or chrome://flags/#enable-webmcp-testing, and CopilotKit no-ops wherever document.modelContext is absent, so there is nothing a headless Chromium run can show.",
+      },
+      {
+        path: "/human-in-the-loop/governed-actions",
+        title: "Governed Actions",
+        docPath: "/ms-agent-python/human-in-the-loop/governed-actions",
+        summary:
+          "Gating a side-effecting agent action behind an approval card, via useInterrupt or useHumanInTheLoop.",
+        status: "working",
+        hasDemo: true,
+        statusNote:
+          "The tool-call variant. The published `z.record(z.unknown())` is a zod 3 signature and does not compile on this repo's zod 4, so it is translated. The `useInterrupt` variant needs a backend that pauses a run and attaches `interrupt.metadata.action`, which no agent here does.",
+      },
+      {
+        path: "/human-in-the-loop/interrupt-flow",
+        title: "Interrupt-based",
+        docPath: "/ms-agent-python/human-in-the-loop/interrupt-flow",
+        summary:
+          "Gate a backend tool behind an approval that the agent raises itself, rendered with useInterrupt.",
+        status: "not-started",
+        statusNote: "Tracked for drift only — no demo yet.",
+      },
+      {
+        path: "/human-in-the-loop/tool-based",
+        title: "Tool-based",
+        docPath: "/ms-agent-python/human-in-the-loop/tool-based",
+        summary:
+          "Gate an action behind a frontend tool that renders UI and waits for the user.",
+        status: "not-started",
+        statusNote: "Tracked for drift only — no demo yet.",
       },
     ],
   },
@@ -221,7 +308,7 @@ export const NAV: NavGroup[] = [
         title: "Readables",
         docPath: "/ms-agent-python/agent-app-context",
         summary:
-          "Sharing app state with the agent via useAgentContext, forwarded as ag_ui_context.",
+          "Sharing app state with the agent via useAgentContext, injected per request by the page's ContextAwareAgent.",
         status: "working",
       },
     ],
@@ -281,7 +368,8 @@ export const NAV: NavGroup[] = [
         summary:
           "Mint, replay, switch: how a threadId comes to exist and what makes history hydrate into the view.",
         status: "partial",
-        statusNote: "Requires the license above for server-side replay.",
+        statusNote:
+          "Mint, remount, replay, switch and the prop-controlled no-op are each driven and read back; replay comes from /api/copilotkit's InMemoryAgentRunner, no license needed. The switch snippet's `existingId` is never defined. The own-API first-message path and Intelligence scoping are not exercised.",
       },
     ],
   },
@@ -305,6 +393,68 @@ export const NAV: NavGroup[] = [
         summary:
           "A live capture of the raw AG-UI event stream flowing between the runtime and this page.",
         status: "working",
+      },
+      {
+        path: "/backend/message-history",
+        hasDemo: true,
+        title: "Message history",
+        docPath: "/ms-agent-python/backend/message-history",
+        summary:
+          "Trimming the transcript forwarded to the agent: the page's middleware inside a second runtime, and its messageFilter prop.",
+        status: "partial",
+        statusNote:
+          "The middleware and its check work as published. `messageFilter`, the page's recommended recipe, was a type error and an ignored prop at @copilotkit/react-core 1.69.2 and is a declared prop at 1.73.3; the page states no minimum version. Its effect on this stack is not yet re-observed.",
+      },
+    ],
+  },
+  {
+    title: "Intelligence",
+    routes: [
+      {
+        path: "/intelligence/memories",
+        title: "User Memories",
+        docPath: "/ms-agent-python/intelligence/memories",
+        summary:
+          "How long-term memory works in CopilotKit Intelligence: user and project scope, activation, reading and writing memories.",
+        status: "not-started",
+        statusNote: "Tracked for drift only — no demo yet.",
+      },
+      {
+        path: "/learning",
+        title: "Automatic Learning",
+        docPath: "/ms-agent-python/learning",
+        summary:
+          "Turn real use of your app into skills you can review and publish.",
+        status: "not-started",
+        statusNote: "Tracked for drift only — no demo yet.",
+      },
+      {
+        path: "/intelligence/learned-skills",
+        hasDemo: true,
+        title: "Skill delivery",
+        docPath: "/ms-agent-python/intelligence/learned-skills",
+        summary:
+          "Loading a Learning container's published skills into an agent through a framework adapter's catalog and two skill tools.",
+        status: "partial",
+        statusNote:
+          "No adapter can be mounted on this Python backend: the only Microsoft Agent Framework adapter is .NET, and copilotkit-intelligence-runtime 404s on PyPI. The BuiltInAgent snippets compile at @copilotkit/runtime 1.73.3 (not at 1.69.2) but would replace this repo's agent. Not recorded, by owner instruction.",
+      },
+    ],
+  },
+  {
+    title: "Cookbook",
+    routes: [
+      {
+        path: "/cookbook/jev-generative-ui",
+        hasDemo: true,
+        title: "Jev: fast generative UI",
+        docPath: "/ms-agent-python/cookbook/jev-generative-ui",
+        summary:
+          "A workspace picker whose prepared controls are chosen and ranked by Jev, a TypeSafe decision service, and carried to React over AG-UI.",
+        status: "partial",
+        offNav: true,
+        statusNote:
+          "Half of it. The schemas, the catalog, readAction and the published Picker render block run; choosePanel, explain, PickerAgent and the Automatic Learning helper do not, because @typesafe-ai/sdk, @langchain/openai and @copilotkit/intelligence-langgraph are absent and the Jev key comes from a third-party vendor. The demo never fakes a Jev decision.",
       },
     ],
   },

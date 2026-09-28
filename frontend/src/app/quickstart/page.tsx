@@ -69,7 +69,16 @@ export default function Page() {
         <code>runner: new InMemoryAgentRunner()</code> with{" "}
         <code>intelligence: new CopilotKitIntelligence(&#123; apiKey &#125;)</code>{" "}
         plus <code>identifyUser</code>, and reads{" "}
-        <code>INTELLIGENCE_API_KEY</code> from <code>.env.local</code>. The same
+        <code>CPK_INTELLIGENCE_API_KEY</code> from <code>.env</code>. As of the
+        2026-09-21 sync the key is no longer pasted by hand into{" "}
+        <code>.env.local</code>: the step runs{" "}
+        <code>npx copilotkit@latest project select</code> from the frontend app
+        directory and says that command writes the file. Step 1 no longer hands
+        out a license key either; it is now a sign-in to cloud-hosted Intelligence,
+        and the page never runs <code>copilotkit login</code> before{" "}
+        <code>project select</code>. This repo keeps its copy of the key in{" "}
+        <code>frontend/.env.local</code>, which Next.js reads alongside{" "}
+        <code>.env</code>. The same
         step&apos;s callout documents dropping both options to fall back to SSE
         mode with an in-memory runner — that is what{" "}
         <code>/api/copilotkit</code> here does, so Threads and the Inspector stay
@@ -91,7 +100,7 @@ export default function Page() {
       <Callout tone="warn" title="Model id in the docs">
         The Quickstart&apos;s env block sets{" "}
         <code>OPENAI_CHAT_MODEL_ID=gpt-5.4-mini</code> while the Python code
-        directly beneath it defaults to <code>gpt-4o-mini</code>. This repo keeps
+        directly beneath it defaults to <code>gpt-5.4-mini</code>. This repo keeps
         the code&apos;s default and lets <code>OPENAI_CHAT_MODEL_ID</code>{" "}
         override it.
       </Callout>

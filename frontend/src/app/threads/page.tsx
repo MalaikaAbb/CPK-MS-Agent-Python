@@ -105,10 +105,13 @@ export default function Page() {
                 </>,
               ],
               [
-                "INTELLIGENCE_API_KEY",
+                "CPK_INTELLIGENCE_API_KEY",
                 <>
                   Project key (<code>cpk-1476_…</code>) for the managed thread
-                  store — this is what actually persists threads.
+                  store — this is what actually persists threads. The docs
+                  renamed it from <code>INTELLIGENCE_API_KEY</code> without
+                  saying whether the old name still works; the route here reads
+                  the new name first and falls back to the old one.
                 </>,
               ],
               ["INTELLIGENCE_API_URL", "Managed Intelligence REST endpoint."],
@@ -164,6 +167,18 @@ export default function Page() {
         <code>expiring</code> during the grace period and then locks the drawer.
       </Callout>
 
+      <Callout tone="warn" title="The docs now say a cloud-hosted project never issues this token">
+        Headless Threads gained a paragraph this sync:{" "}
+        &ldquo;Cloud-hosted setup does not issue{" "}
+        <code>COPILOTKIT_LICENSE_TOKEN</code>. That token is only for offline or
+        self-hosted licensing and does not replace the cloud-hosted project API
+        key.&rdquo; Nothing then says what a cloud-hosted-only project should do
+        about the drawer, which gates on a license status and stays locked
+        without one. This repo holds a token an older CLI wrote, which is the
+        only reason the drawer unlocks here — a reader following the current
+        pages from scratch gets a permanently locked drawer and no explanation.
+      </Callout>
+
       <Callout tone="warn" title="Not covered">
         The doc&apos;s fourth threads page,{" "}
         <a
@@ -177,6 +192,26 @@ export default function Page() {
         , is about migrating existing LangGraph or ADK conversations into the
         platform store. There is nothing to migrate from here, so it is left
         out rather than mocked.
+      </Callout>
+
+      <Callout tone="warn" title="Not covered — &ldquo;Try from here&rdquo;">
+        The guide&apos;s &ldquo;See it in Inspector&rdquo; step:{" "}
+        &ldquo;Open a real thread and use <strong>Try from here</strong> to copy
+        it into a Playground scratch session. The stored thread does not
+        change.&rdquo; At <code>@copilotkit/web-inspector</code> 1.69.2 there
+        was no such control: the pane was labelled <code>Threads</code> and had
+        no <strong>Try from here</strong>. At 1.73.3 (installed, transitive via{" "}
+        <code>@copilotkit/react-core</code> declared <code>^1.73.3</code>) the
+        pane is <strong>Rich Threads</strong> and the button exists; it renders
+        for a real, non-example thread when the runtime reports{" "}
+        <code>threadEndpoints.list</code> and does not set{" "}
+        <code>threadEndpoints.inspect</code> to <code>false</code>. On
+        2026-09-23 this repo&apos;s <code>/api/copilotkit-threads/info</code>{" "}
+        answered <code>&quot;threadEndpoints&quot;:&#123;&quot;list&quot;:true,&quot;inspect&quot;:true,&hellip;&#125;</code>{" "}
+        with <code>licenseStatus: &quot;valid&quot;</code>, and its thread list
+        returned real threads, so the control is reachable here. It is still not
+        exercised: no route asserts it and no clip shows it, including the claim
+        that the stored thread is left untouched.
       </Callout>
     </>
   );
