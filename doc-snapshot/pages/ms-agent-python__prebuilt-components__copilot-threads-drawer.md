@@ -43,7 +43,7 @@ Use the drawer when you want:
 - A mobile-ready off-canvas drawer with its own launcher
 
 It requires CopilotKit Intelligence (threads are stored and synced
-server-side). <SignupLink surface="docs_drawer">Start cloud-hosted setup</SignupLink> to create or select a project.
+server-side). <SignupLink surface="docs_drawer">Get a free developer account</SignupLink> to set that up.
 
 For multi-user applications, configure the Runtime to
 [scope Rich Threads to the signed-in user](/ms-agent-python/threads-lifecycle#scope-rich-threads-to-the-signed-in-user).
@@ -51,7 +51,7 @@ For multi-user applications, configure the Runtime to
 <OpsPlatformCTA
   variant="inline"
   title="Threads run in CopilotKit Intelligence"
-  body="Connect a cloud-hosted project to get persistent threads and realtime sync."
+  body="Get persistent threads and realtime sync on the free Developer tier."
   surface="docs_drawer"
 />
 

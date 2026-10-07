@@ -14,7 +14,7 @@ Every CopilotKit conversation is scoped to a **thread**, identified by a `thread
 ## The lifecycle at a glance
 
 1. **Mint.** When a chat mounts without an explicit `threadId`, the client generates one (a UUID v4).
-2. **Run.** Messages and tool calls stream under that `threadId`. If a server-side store is configured (CopilotKit Intelligence, or a persisting `AgentRunner`), they are persisted as they happen so the thread can be replayed later. A runtime with no persistence layer keeps nothing server-side. See [Threads & Persistence Architecture](/ms-agent-python/intelligence/threads-explained) for the full server-side model.
+2. **Run.** Messages and tool calls stream under that `threadId`. If a server-side store is configured (CopilotKit Intelligence, or a persisting `AgentRunner`), they are persisted as they happen so the thread can be replayed later. A runtime with no persistence layer keeps nothing server-side. See [Threads & Persistence Architecture](/ms-agent-python/premium/threads-explained) for the full server-side model.
 3. **Hydrate.** When a chat mounts *with* a known `threadId`, the client connects and replays the persisted history into the UI.
 4. **Switch / start.** You change the active thread (restoring its history) or start a fresh one (clearing the view).
 
@@ -50,7 +50,7 @@ CopilotKit v2 does **not** use an `initialMessages` prop to seed a conversation.
 ```
 
 <Callout type="warn">
-  Replay requires a **server-side store to replay from**: CopilotKit Intelligence, or a persisting `AgentRunner` (e.g. the SQLite runner). A self-hosted runtime with no persistence layer has nothing to replay, so `connectAgent()` returns an empty stream and the conversation starts blank. If history isn't restoring, check that a store is configured, not the client code. The [Persistence Architecture](/ms-agent-python/intelligence/threads-explained) page covers how replay works server-side.
+  Replay requires a **server-side store to replay from**: CopilotKit Intelligence, or a persisting `AgentRunner` (e.g. the SQLite runner). A self-hosted runtime with no persistence layer has nothing to replay, so `connectAgent()` returns an empty stream and the conversation starts blank. If history isn't restoring, check that a store is configured, not the client code. The [Persistence Architecture](/ms-agent-python/premium/threads-explained) page covers how replay works server-side.
 </Callout>
 
 For a *fresh* (non-explicit) thread, e.g. after `startNewThread()`, there's nothing to replay, so `connect` is skipped and the message view is cleared.

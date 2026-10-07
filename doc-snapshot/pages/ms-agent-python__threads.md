@@ -32,14 +32,35 @@ Rich Threads are the persistence and conversation layer behind your agent's conv
 
 Copy this prompt into your coding agent to inspect your existing CopilotKit app and configure Rich Threads with CopilotKit Intelligence. Prefer to work through the setup yourself? Follow the manual steps below.
 
-### Copy this prompt into your coding agent
+Create a new CopilotKit app connected to cloud-hosted CopilotKit Intelligence. Your application and CopilotKit Runtime run locally while CopilotKit Intelligence stores and synchronizes Rich Threads.
 
 ```text
 Help me set this up in my CopilotKit app. Run this command and follow the instructions:
 
 npx --yes copilotkit@latest onboard start --intent add-rich-threads
 
-If it requires a CopilotKit CLI session check, you have permission to run it. Never reveal credentials.
+```text
+Set up and verify a CopilotKit Rich Threads application with cloud-hosted
+CopilotKit Intelligence.
+
+First inspect this repository and follow its agent instructions. If this is not
+already a CLI-created CopilotKit Threads starter, run
+`npx copilotkit@latest init` and ask me to complete the interactive browser
+sign-in and CopilotKit Intelligence project selection when needed. Use the
+scaffolded local application and CopilotKit Runtime configuration.
+
+Keep the Threads Drawer that comes with the starter. Do not rebuild it or invent
+manual CopilotKit Intelligence environment configuration. Do not set up a local
+Intelligence service.
+
+Start the application and Runtime using the generated instructions. Create a
+conversation through the included Threads Drawer, reload or reopen it, and
+verify that the complete conversation returns. If browser interaction requires
+me, give me the exact step and continue after I confirm it.
+
+Finish by reporting the files changed, commands run, and the persistence check
+you completed. Stop and explain the blocker if the cloud-hosted setup cannot be
+completed; do not substitute an undocumented setup.
 ```
 
 ## Set up Rich Threads manually
@@ -87,9 +108,8 @@ Create a new CopilotKit app connected to cloud-hosted CopilotKit Intelligence. Y
   <Step>
     ### See it in Inspector
 
-    Open Inspector on localhost. Stay on **Rich Threads** (it is the default).
-Real threads appear when Intelligence is on. Enable Intelligence appears when it is off.
-Open a real thread and use **Try from here** to copy it into a Playground scratch session. The stored thread does not change.
+2. Complete browser sign-in, then create or select a CopilotKit Intelligence project when the CLI asks.
+3. Start the generated application and Runtime with the command printed by the CLI. For the standard npm setup:
 
 More detail: [Inspector](/ms-agent-python/inspector).
 
@@ -109,6 +129,14 @@ With Rich Threads, users can close the browser, return on another device, reopen
 Built on portable AG-UI event history, Rich Threads restore messages, generative UI, multimodal inputs, tool activity, state, and live-run continuity instead of saving only a chat transcript.
 
 Without CopilotKit Rich Threads, your team has to design the storage model, replay historical events and generative UI, persist multimodal inputs, reconnect live streams, synchronize thread lists, coordinate concurrent runs, and build lifecycle APIs before you can ship the conversation experience itself. CopilotKit Intelligence handles that infrastructure so you can focus on your agent and product UI.
+
+<OpsPlatformCTA
+  variant="inline"
+  title="Ship persistent conversations without building the backend"
+  body="CopilotKit Intelligence handles durable history, replay, realtime sync, and thread lifecycle on the free Developer tier."
+  ctaLabel="Get CopilotKit Intelligence free"
+  surface="docs_threads_overview"
+/>
 
 Rich Threads provide:
 
@@ -193,7 +221,7 @@ For how Intelligence and framework persistence work together, see [Threads & Per
 
 ## Sync existing conversations
 
-Threads capture new CopilotKit conversations once your app uses CopilotKit Intelligence. If you already have persisted Google ADK or LangGraph conversations, follow <DocsTrackedLink href="/ms-agent-python/threads-import" surface="docs_threads_history_sync">Import & Synchronize Thread History</DocsTrackedLink> to synchronize supported history with the same thread store. Keep the native storage and analytics you already use; future CopilotKit-mediated runs continue through native durable persistence when it remains wired while CopilotKit Intelligence records the thread. Users can then resume imported and new conversations through the same UI.
+Threads capture new CopilotKit conversations once your app uses CopilotKit Intelligence. If you already have persisted Google ADK or LangGraph conversations, follow <DocsTrackedLink href="/ms-agent-python/threads-import" surface="docs_threads_history_sync">Import & Synchronize Thread History</DocsTrackedLink> to synchronize supported history with the same thread store. Keep the native storage and analytics you already use; future CopilotKit-mediated runs continue through native durable persistence when it remains wired while CopilotKit Intelligence records the Rich Thread experience. Users can then resume imported and new conversations through the same UI.
 
 CopilotKit Threads are separate from native framework session or checkpoint stores. Your backend can keep a stable mapping when the agent framework also needs its own conversation identifier.
 
@@ -203,17 +231,7 @@ CopilotKit Threads are separate from native framework session or checkpoint stor
 
 ## Next steps
 
-<Accordions>
-  <Accordion title="Understand the architecture">
-    [Threads & Persistence Architecture](/ms-agent-python/intelligence/threads-explained) covers event replay, live reconnection, synchronization, locking, and lifecycle behavior.
-  </Accordion>
-  <Accordion title="Use the cloud-hosted deployment">
-    [Cloud-hosted CopilotKit Intelligence](/ms-agent-python/intelligence/managed-intelligence-platform) is where you create the project that stores your app's threads and runtime credentials.
-  </Accordion>
-  <Accordion title="Plan production self-hosting">
-    [Self-host CopilotKit Intelligence](/ms-agent-python/intelligence/self-hosting) with CopilotKit Engineering to run the Threads platform in your Kubernetes environment.
-  </Accordion>
-  <Accordion title="Look up the API">
-    The [useThreads reference](/reference/hooks/useThreads) lists parameters, lifecycle methods, pagination, and return types.
-  </Accordion>
-</Accordions>
+- **Understand the architecture:** [Threads & Persistence Architecture](/ms-agent-python/premium/threads-explained) — event replay, live reconnection, synchronization, locking, and lifecycle behavior
+- **Use the hosted platform:** [Cloud-hosted CopilotKit Intelligence](/ms-agent-python/premium/managed-intelligence-platform) — create and manage the project where your app stores threads and runtime credentials
+- **Plan production self-hosting:** [Self-host CopilotKit Intelligence](/ms-agent-python/premium/self-hosting) — work with CopilotKit Engineering to run the Threads platform in your Kubernetes environment
+- **Look up the API:** [useThreads reference](/reference/hooks/useThreads) — parameters, lifecycle methods, pagination, and return types

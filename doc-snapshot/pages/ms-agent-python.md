@@ -52,34 +52,18 @@
       "ms-agent-dotnet": "ms-agent-dotnet",
       "ms-agent-harness-dotnet": "ms-agent-harness-dotnet"
     },
-    intro:
-      "The Microsoft Agent Framework and CopilotKit running together, in the React frontend. Every demo below is the same integration with one capability turned on.",
-    demos: [
-      { slug: "agentic-chat", title: "Pre-Built: CopilotChat" },
-      { slug: "hitl-in-chat", title: "Human In the Loop: In-chat" },
-      { slug: "shared-state-read-write", title: "Shared State: Read + Write" },
-      { slug: "gen-ui-agent", title: "Generative UI: Agent State" }
-    ]
-  }}
->
-
-```ts title="app/api/copilotkit/route.ts"
-import {
-  CopilotRuntime,
-  createCopilotRuntimeHandler,
-} from "@copilotkit/runtime/v2";
-import { HttpAgent } from "@ag-ui/client";
-
-const runtime = new CopilotRuntime({
-  agents: {
-    my_agent: new HttpAgent({ url: process.env.AGENT_URL! }),
-  },
-});
-
-const handler = createCopilotRuntimeHandler({
-  runtime,
-  basePath: "/api/copilotkit",
-});
+  ]}
+  afterFeatures={
+    <OpsPlatformCTA
+      variant="card"
+      title="Bring your Agent Framework agents to production"
+      body="Add persistent threads and the inspector with CopilotKit Intelligence."
+      ctaLabel="Create a free account"
+      surface="docs_microsoft_agent_framework_overview"
+    />
+  }
+  tutorialLink="/microsoft-agent-framework/quickstart"
+/>
 
 export const GET = handler;
 export const POST = handler;
