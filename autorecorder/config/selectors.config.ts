@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- *  ADAPT THIS FILE — 2 of 3
+ *  ADAPT THIS FILE — 2 of 4
  * ═══════════════════════════════════════════════════════════════════════════
  *
  * The DOM contract: how the recorder finds the chat surface it has to drive.
@@ -63,7 +63,7 @@ export const SELECTORS: SelectorContract = {
   // button is disabled until React holds the typed text -- so this doubles as
   // the "is it actually interactive yet" signal sendPrompt waits on.
   chatSubmit:
-    '[data-testid="copilot-send-button"], button[type="submit"], button:has-text("Send"), .copilotKitSendButton, button[aria-label*="Send"]',
+    '[data-testid="copilot-send-button"], button[type="submit"], .copilotKitSendButton, button[aria-label*="Send"], button[title*="Send"]',
 
   assistantMessage:
     '.copilotKitAssistantMessage, [data-message-role="assistant"], .copilotKitMessage:not(:first-child), [class*="assistant"]',

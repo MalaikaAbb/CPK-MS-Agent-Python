@@ -36,3 +36,24 @@ autorecorder/videos/.temp_chunks/
 # `npm run record`; see autorecorder/videos/.gitignore for why.
 autorecorder/videos/*.webm
 autorecorder/videos/.temp_chunks/
+
+# Per-page error logs written by `npm run record` — regenerated every run.
+autorecorder/videos/logs/
+
+# Captured terminal sessions from `npm run capture`. Regenerable, and they hold
+# whatever the CLI printed on the machine that ran it — the operator's paths and
+# their CopilotKit Intelligence project names among it. Commit one deliberately
+# (`git add -f`) when a specific run is worth keeping as a baseline to diff a
+# future CLI version against; that is the one case where the text is the point.
+autorecorder/casts/
+
+# Stray recordings saved outside autorecorder/videos/ -- a clip dropped in the
+# repo root or beside the code it shows matches none of the rules above, which
+# is how a 66MB .mp4 and a 5.9MB .webm reached `git status` untracked. Video
+# only: the voiceover assets in autorecorder/audio/ are .m4a and ARE committed.
+*.webm
+*.mp4
+
+# Untracked scratch scaffolds. The CLI recorder reads 1-cli-testing/ (see
+# autorecorder/config/cli.config.ts); this duplicate is nothing's input.
+cli-testbed/

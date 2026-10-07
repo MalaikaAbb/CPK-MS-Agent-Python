@@ -4,9 +4,7 @@
 
 Build a single Next application that acts as a **living test harness** for one CopilotKit agent-backend integration (e.g. Agno, AG2, PydanticAI, AWS Strands, Deep Agents JS, CrewAI, LangGraph, etc.). Every doc page under `https://docs.copilotkit.ai/{framework}/...` becomes a navigable route in the app, and each route contains a **working, interactive implementation** of what that doc page teaches — not a copy of the doc text.
 
-Replace `{framework}` everywhere below with the actual framework slug (`agno`, `ag2`, `pydantic-ai`, `strands`, `deep-agents`, `mastra`, `claude-sdk-python`, etc.) before starting.
-
----
+Replace `{framework}` everywhere below with the actual framework slug (`agno`, `ag2`, `pydantic-ai`, `strands`, `deep-agents`, `mastra`, `claude-sdk-python`, etc.) before  starting.---
 
 ## Repo layout — one GitHub repo per framework
 
@@ -96,7 +94,7 @@ This README is the front door of the repo — someone should be able to clone it
 ### 1. Header
 - Project title: `CopilotKit + {Framework} Test Suite`
 - One-line description of what this repo demonstrates
-- Badges/status line: build status if CI exists, doc-sync date (the date Step 0 was last run against live docs), CopilotKit package versions used
+- Badges/status line: build status (typecheck and lint), doc-sync date (the date Step 0 was last run against live docs), CopilotKit package versions used
 
 ### 2. Overview
 - 2–4 sentences: what this framework integration is, and what this repo is for (a navigable, working test harness covering every `docs.copilotkit.ai/{framework}` page)

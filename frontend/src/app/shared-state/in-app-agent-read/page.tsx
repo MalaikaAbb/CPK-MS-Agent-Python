@@ -30,17 +30,71 @@ export default function Page() {
         </div>
       </Panel>
 
-      <Callout tone="warn" title="`initialState` does not exist on useAgent">
-        Both Shared State pages seed the starting value with{" "}
-        <code>useAgent({"{ agentId, initialState }"})</code>. In{" "}
-        <code>@copilotkit/react-core</code> 1.66.2 there is no{" "}
-        <code>initialState</code> prop on <code>useAgent</code> — passing it is a
-        type error. This repo seeds the value on the server instead, with{" "}
-        <code>default_state</code> on{" "}
-        <code>add_agent_framework_fastapi_endpoint</code>, which is a real
-        parameter of that function. The read page also shows a{" "}
-        <code>render</code> prop on <code>useAgent</code>, which likewise is not
-        in the shipped type.
+      <Callout tone="info" title="Fixed upstream: `initialState` and `render` are gone">
+        Both Shared State pages used to seed with{" "}
+        <code>useAgent({"{ agentId, initialState }"})</code>, and this one also
+        showed a <code>render</code> prop. Neither has ever been on{" "}
+        <code>useAgent</code> in <code>@copilotkit/react-core</code> 1.69.2, so
+        both were type errors. The pages now seed in a <code>useEffect</code>{" "}
+        gated on <code>isReady</code>, which the hook does return, and the demo
+        runs that snippet as published. <code>default_state</code> on{" "}
+        <code>add_agent_framework_fastapi_endpoint</code> stays: the client seed
+        covers the first paint, the server one survives a re-run.
+      </Callout>
+
+      <Callout tone="warn" title="`isReady` does not mean the state has loaded">
+        The published seed writes <code>english</code> whenever{" "}
+        <code>state.language</code> is still undefined at the moment{" "}
+        <code>isReady</code> flips true. But <code>isReady</code> only reports
+        that the runtime <code>/info</code> sync resolved — it says nothing
+        about whether a state snapshot has arrived. On these routes the endpoint
+        supplies <code>default_state</code>, so the two agree and the seed is
+        harmless; on a persisted thread holding <code>spanish</code>, the same
+        snippet races the replay and the docs offer no guard.
+      </Callout>
+
+      <Callout tone="warn" title="The render sample is named after the component it would replace">
+        &ldquo;Rendering agent state in your app&rdquo; reuses the component
+        name <code>YourMainContent</code> from the step above — the component
+        that draws the entire left pane — but its body is{" "}
+        <code>if (!state.language) return null;</code> followed by a single{" "}
+        <code>div</code>. Take the page at its word and your main content is
+        replaced by one line that vanishes whenever state is empty. The old{" "}
+        <code>render</code> prop failed to compile; this one compiles and
+        deletes your UI.
+        <br />
+        <br />
+        It is implemented verbatim, under its published name, and rendered in
+        the dashed box on the demo — small, so the route survives it, and live,
+        so you can watch it return nothing before the seed lands.
+      </Callout>
+
+      <Callout tone="warn" title="The snippet builds a guarded `state` and then ignores it">
+        The step&apos;s snippet computes{" "}
+        <code>const state = (agent.state ?? {"{}"}) as Partial&lt;AgentState&gt;</code>
+        , uses it in the effect, and then renders{" "}
+        <code>&lt;p&gt;Language: {"{agent.state?.language}"}&lt;/p&gt;</code> —
+        back to the raw object on the one line that is highlighted. The guarded
+        const exists only to feed the effect&apos;s dependency array. Harmless
+        here, since the optional chaining covers it, but the page is
+        demonstrating a defensive pattern it does not follow itself.
+      </Callout>
+
+      <Callout tone="warn" title="The same line is written two different ways across the guides">
+        This page publishes <code>{"{agent.state?.language}"}</code>, and so
+        does the Mastra version. The AG2 version of the identical snippet
+        publishes <code>{"{agent.state.language}"}</code>, without the optional
+        chaining — the one character that decides whether the page survives an
+        undefined state. Nothing says which is intended. Each repo here
+        reproduces its own page&apos;s spelling, so the divergence stays visible
+        rather than being normalised away.
+      </Callout>
+
+      <Callout tone="warn" title="Rendering state inside the chat is no longer documented">
+        The section was retitled from &ldquo;Rendering agent state in the
+        chat&rdquo; to &ldquo;in your app&rdquo;, and the in-chat option went
+        with the title. Nothing on the page now says how to put state into the
+        conversation, and no replacement page is linked.
       </Callout>
 
       <Panel title="Source">

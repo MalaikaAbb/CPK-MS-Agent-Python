@@ -70,7 +70,7 @@ before exposing thread lists or lifecycle actions.
           // Without `intelligence` the runtime runs in SSE mode and the thread
           // UI has nothing to list — chat still works, so this fails quietly.
           intelligence: new CopilotKitIntelligence({
-            apiKey: process.env.INTELLIGENCE_API_KEY!,
+            apiKey: process.env.CPK_INTELLIGENCE_API_KEY!,
           }),
           // Required alongside `intelligence`: threads are scoped per user, so
           // without this every visitor shares one history. Resolve the real
@@ -201,9 +201,36 @@ before exposing thread lists or lifecycle actions.
       </Step>
 </Steps>
 
+## Driving one agent per thread
+
+`useThreads` lists and switches threads. To read or run an agent **scoped to a
+specific thread** — one open tab per thread, for instance — pass all three of
+`agentId`, `runtimeAgentId` and `threadId` to `useAgent`:
+
+```tsx
+const { agent } = useAgent({
+  agentId: `chat-${threadId}`, // local id, unique per mounted thread
+  runtimeAgentId: "default",   // the one runtime agent they all route to
+  threadId,                    // the thread this instance is pinned to
+});
+```
+
+This registers a private proxied agent per hook, so several threads can be
+mounted at once against a single runtime agent. `agent.runAgent()` then
+addresses that thread.
+
+<Callout type="warn">
+  The three properties are a matched set and partial combinations do not
+  compile. In particular `useAgent({ agentId, threadId })` is a type error: a
+  runtime agent is a singleton, so pinning a thread directly onto it would let
+  two hooks sharing an `agentId` overwrite each other's thread. See the
+  [`useAgent` reference](/reference/hooks/useAgent) for the full rules.
+</Callout>
+
 ## Next steps
 
 - **Prebuilt UI:** [Threads Drawer](/ms-agent-python/prebuilt-components/copilot-threads-drawer) — the drop-in thread switcher ([React reference](/reference/components/CopilotThreadsDrawer))
 - **Thread architecture:** [Threads & Persistence Architecture](/ms-agent-python/premium/threads-explained) — event replay model and WebSocket sync
 - **Production self-hosting:** [Self-host CopilotKit Intelligence](/ms-agent-python/premium/self-hosting) — run the Threads platform inside your infrastructure with CopilotKit Engineering
 - **API reference:** [useThreads](/reference/hooks/useThreads) — parameters, return values, types
+- **API reference:** [useAgent](/reference/hooks/useAgent) — including the thread-scoped shape above

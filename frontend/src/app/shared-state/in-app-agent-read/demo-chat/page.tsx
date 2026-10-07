@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { CopilotChat, useAgent } from "@copilotkit/react-core/v2";
 
 import { DemoFrame } from "@/components/demo-frame";
@@ -12,20 +14,49 @@ import { DemoFrame } from "@/components/demo-frame";
  * language updates `agent.state.language` — and this panel — without any
  * message parsing on the frontend.
  *
- * The doc seeds the starting value with `useAgent({ initialState })`. That prop
- * does not exist on `useAgent` in 1.66.2, so the seed lives on the server
- * instead — `default_state` on the endpoint in `backend/main.py`.
+ * The page used to seed with `useAgent({ initialState })`, a prop the hook has
+ * never had. It now seeds in an effect gated on `isReady`, which the hook does
+ * return, so the published snippet compiles and is reproduced verbatim below.
+ * `default_state` on the endpoint in `backend/main.py` stays: the client seed
+ * only covers the first paint, the server one survives a re-run.
  */
 
 type AgentState = {
   language: "english" | "spanish";
 };
 
+/**
+ * "Rendering agent state in your app", verbatim.
+ *
+ * The page names this `YourMainContent` — the same name as the component in
+ * the step above, which draws the whole page. Reproduced under that name so
+ * the collision is visible; rendered as a small widget so the route survives
+ * it.
+ */
+// [4] shared state: render state in your app
+// [!code highlight]
+function YourMainContent() {
+  const { agent } = useAgent({
+    agentId: "sample_agent",
+  });
+  const state = (agent.state ?? {}) as Partial<AgentState>;
+
+  if (!state.language) return null;
+  return <div>Language: {state.language}</div>;
+}
+
 export default function Page() {
   // [1] shared state: read agent state
   // [!code highlight]
-  const { agent } = useAgent({ agentId: "sample_agent" });
-  const state = agent.state as AgentState | undefined;
+  const { agent, isReady } = useAgent({ agentId: "sample_agent" });
+  const state = (agent.state ?? {}) as Partial<AgentState>;
+
+  // [2] shared state: seed state once the agent is ready
+  // [!code highlight]
+  useEffect(() => {
+    if (!isReady || state.language !== undefined) return;
+    agent.setState({ ...(agent.state ?? {}), language: "english" });
+  }, [agent, isReady, state.language]);
 
   return (
     <DemoFrame
@@ -38,11 +69,20 @@ export default function Page() {
             Your main content
           </h1>
           <p className="mt-3 text-sm text-slate-700 dark:text-slate-300">
+            {/* [3] shared state: display state */}
+            {/* [!code highlight] */}
             Language:{" "}
             <strong className="text-[var(--accent)]">
-              {state?.language ?? "—"}
+              {agent.state?.language}
             </strong>
           </p>
+
+          <h2 className="mt-6 text-xs font-semibold uppercase tracking-wide text-slate-500">
+            The page&apos;s render sample
+          </h2>
+          <div className="mt-2 rounded-lg border border-dashed border-slate-300 p-3 text-sm dark:border-slate-600">
+            <YourMainContent />
+          </div>
 
           <h2 className="mt-6 text-xs font-semibold uppercase tracking-wide text-slate-500">
             Raw agent.state

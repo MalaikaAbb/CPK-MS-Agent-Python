@@ -37,10 +37,11 @@ do not describe the port as complete.
 | `config/project.config.ts` | **Yes** | Framework slug, doc root, URLs, start commands |
 | `config/pages.config.ts` | **Yes** | One entry per doc page |
 | `config/selectors.config.ts` | **Yes** | How to find the chat surface in this frontend |
+| `config/cli.config.ts` | **Yes** | This framework's terminal flows — the scaffolding CLI and the installs |
 | `actions/*.action.ts` | **Yes** | What to do on a page that needs more than "send a prompt" |
 | `actions/index.ts` | **Yes** | Which handler serves which page id |
-| `core/**` | **No** | Engine, IDE simulator, overlays, cursor, doctor |
-| `cli.ts` | **No** | Argument parsing and the run summary |
+| `core/**` | **No** | Engine, IDE simulator, overlays, cursor, doctor, CLI driver |
+| `cli.ts`, `cli-capture.ts`, `cli-render.ts` | **No** | Argument parsing and the run summaries |
 
 **Do not edit `core/`.** It contains no framework-specific knowledge — every
 such value already comes from `config/`. If you believe a change to `core/` is
@@ -125,6 +126,58 @@ mistaken for this one's.
 
 Delete handlers for pages that no longer exist. The doctor warns about orphans.
 
+## Step 5b — The CLI flows
+
+Only if this framework's quickstart tells people to run a command. Most do:
+`npx copilotkit@latest create` is the same entrypoint everywhere, but the
+answers are not.
+
+Edit `config/cli.config.ts`: the constants at the top (app name, the
+framework row to select, the Intelligence project), and the prompts if this
+CLI asks different ones. `npm run capture -- --login` is the first real run
+and doubles as the check that the PTY works on this machine: it opens a
+browser and waits on the terminal, which a pipe cannot do.
+
+**Name rows; never count keypresses.** Write
+`select: { label: 'Mastra' }`, not twelve `Down` keys. The framework list has
+23 entries today and grows with every integration CopilotKit ships, so a count
+that is right this week silently scaffolds the wrong framework next week — and
+reports success while doing it. `npm run doctor` rejects a step that sends more
+than one arrow key without a `select`.
+
+Mark genuinely conditional prompts `optional: true`. Two in the reference are:
+npx only asks to install when the package is uncached, and only 18 of the 23
+frameworks' starters offer a chat channel at all.
+
+```bash
+npm run capture -- --login       # once; sign-in opens a browser
+npm run capture -- --scaffold    # runs the real CLI, writes a cast
+npm run capture -- --distribute  # copies the scaffold, seeds the model key
+npm run capture -- --install-npm # one per package manager (pnpm, yarn, bun)
+npm run cli:videos               # films everything, decides video 3 per manager
+```
+
+The deliverable is one CLI clip plus three per package manager: the install
+(always, pass or fail), then **either** the app running **or** the failure
+explained. `cli:videos` reads each install's `casts/*.report.json` and films
+the finding clip (`onFailure`) for a failed install or records the live demo
+(`onSuccess` → a page in `pages.config.ts`) for one that worked. Nobody picks
+which by hand. `config/cli.config.ts` generates all of it from
+`PACKAGE_MANAGERS`; change that one list and every clip follows.
+
+A failure you have not analysed yet still produces a finding clip: the note is
+built from the report (command, exit code, last lines on screen). Put what you
+learn into `INSTALL_ANALYSIS` afterwards and re-render — it is appended under
+the facts.
+
+Capture and render are separate on purpose: the CLI runs once, and re-shooting
+the video never re-scaffolds anything or asks anyone to sign in again.
+
+If this framework's starter is not a Next app, change `readyPattern` on the
+matrix pages in `pages.config.ts`: it is the text the dev server prints when it
+is actually serving, and waiting for the wrong string means waiting the whole
+timeout and then reporting that a healthy server never started.
+
 ## Step 6 — Prove it
 
 ```bash
@@ -183,6 +236,8 @@ When you finish, state:
 - any doc page that 404s or is missing from the nav for this framework
 - which selectors you had to change
 - any page whose recording fails, and the doctor output for it
+- which CLI prompts differed from the reference, and any that turned out to be
+  conditional on this framework
 - anything that made you want to edit `core/`
 
 A port that silently drops pages to make the doctor pass is worse than one that

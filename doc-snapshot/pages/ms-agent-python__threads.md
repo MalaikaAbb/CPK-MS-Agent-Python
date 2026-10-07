@@ -4,6 +4,10 @@
 
 
 
+## Overview
+
+Rich Threads are the persistence and conversation layer behind your agent's conversations. Users get rich history, continuity across devices, reconnection to active runs, and ready-made thread controls.
+
 <div
   aria-label="A support workspace using Threads Drawer to move between customer conversations while CopilotChat renders the selected case details."
   className="shell-docs-radius-surface relative mb-4 overflow-hidden border border-[var(--border)] bg-[var(--bg-surface)] shadow-[0px_16px_24px_-8px_rgba(1,5,7,0.12)] ring-1 ring-inset ring-white/70 dark:shadow-[0px_16px_32px_-10px_rgba(0,0,0,0.45)] dark:ring-white/10"
@@ -15,22 +19,25 @@
   />
 </div>
 
-<Callout type="info" title="See this in Inspector">
-  Open Inspector on localhost. Stay on **Threads** (it is the default).
-  Real threads appear when Intelligence is on. Enable Intelligence appears when it is off.
+<Accordions>
+  <Accordion title="Starting fresh?">
+    Intelligence stores your conversation history and restores messages, generative UI, tool interactions, and multimodal inputs when users return.
+  </Accordion>
+  <Accordion title="Already using LangGraph or ADK persistence?">
+    Keep it. Rich Threads complement your existing setup with a consistent, interactive conversation experience for your users.
+  </Accordion>
+</Accordions>
 
-  More detail: [Inspector](/ms-agent-python/inspector).
-</Callout>
+## Start with your coding agent
 
-
-## Get started
+Copy this prompt into your coding agent to inspect your existing CopilotKit app and configure Rich Threads with CopilotKit Intelligence. Prefer to work through the setup yourself? Follow the manual steps below.
 
 Create a new CopilotKit app connected to cloud-hosted CopilotKit Intelligence. Your application and CopilotKit Runtime run locally while CopilotKit Intelligence stores and synchronizes Rich Threads.
 
-<Accordions>
-<Accordion title="Build and verify this with a coding agent">
+```text
+Help me set this up in my CopilotKit app. Run this command and follow the instructions:
 
-<DocsTrackedCopy surface="docs_threads_agent_prompt">
+npx --yes copilotkit@latest onboard start --intent add-rich-threads
 
 ```text
 Set up and verify a CopilotKit Rich Threads application with cloud-hosted
@@ -56,32 +63,58 @@ you completed. Stop and explain the blocker if the cloud-hosted setup cannot be
 completed; do not substitute an undocumented setup.
 ```
 
-</DocsTrackedCopy>
+## Set up Rich Threads manually
 
-</Accordion>
-</Accordions>
+Create a new CopilotKit app connected to cloud-hosted CopilotKit Intelligence. Your application and CopilotKit Runtime run locally while CopilotKit Intelligence stores and synchronizes Rich Threads. If you already have a working app, follow the [Intelligence quickstart](/ms-agent-python/intelligence/quickstart#set-it-up-manually) to connect it instead.
 
-Or follow the steps yourself:
+<Steps>
+  <Step>
+    ### Create your app
 
-1. Run the interactive starter command:
+    Run the interactive starter command:
 
-   <DocsTrackedCopy surface="docs_threads_managed_setup">
+    <DocsTrackedCopy surface="docs_threads_managed_setup">
 
-   ```bash title="Terminal"
-   npx copilotkit@latest init
-   ```
+    ```bash title="Terminal"
+    npx copilotkit@latest init
+    ```
 
-   </DocsTrackedCopy>
+    </DocsTrackedCopy>
+  </Step>
+
+  <Step>
+    ### Connect CopilotKit Intelligence
+
+    Complete browser sign-in, then create or select a CopilotKit Intelligence project when the CLI asks.
+  </Step>
+
+  <Step>
+    ### Start your app and Runtime
+
+    Start the generated application and Runtime with the command printed by the CLI. For the standard npm setup:
+
+    ```bash title="Terminal"
+    cd <project-directory>
+    npm run dev
+    ```
+  </Step>
+
+  <Step>
+    ### Verify your first thread
+
+    Use the included Threads Drawer to create a conversation. Reload the page or reopen the conversation and confirm that its complete history returns.
+  </Step>
+
+  <Step>
+    ### See it in Inspector
 
 2. Complete browser sign-in, then create or select a CopilotKit Intelligence project when the CLI asks.
 3. Start the generated application and Runtime with the command printed by the CLI. For the standard npm setup:
 
-   ```bash title="Terminal"
-   cd <project-directory>
-   npm run dev
-   ```
+More detail: [Inspector](/ms-agent-python/inspector).
 
-4. Use the included Threads Drawer to create a conversation. Reload the page or reopen the conversation and confirm that its complete history returns.
+  </Step>
+</Steps>
 
 Threads-capable CLI starters already include [Threads Drawer](/ms-agent-python/prebuilt-components/copilot-threads-drawer). Use its guide when you are ready to customize the drawer. Choose [Headless Threads](/ms-agent-python/headless-threads) later if your product needs a fully custom thread UI.
 
@@ -164,35 +197,27 @@ Both UI paths use the same Threads infrastructure. A stable `threadId` connects 
 
 ## Choose how to build the UI
 
-<div className="hidden lg:block">
+<CTACards
+  columns={2}
+  cards={[
+    {
+      iconKey: "panelLeft",
+      title: "Threads Drawer",
+      description:
+        "Ship a mobile-friendly conversation sidebar with switching, new conversations, archive, delete, and pagination already wired to your chat.",
+      href: "/prebuilt-components/copilot-threads-drawer",
+    },
+    {
+      iconKey: "code",
+      title: "Headless Threads",
+      description:
+        "Build a custom layout, workflow, permission model, or thread action UI while CopilotKit continues to handle the backend.",
+      href: "/headless-threads",
+    },
+  ]}
+/>
 
-  | If you want to... | Choose | Start here |
-  |---|---|---|
-  | Ship a mobile-friendly conversation sidebar with switching, new conversations, archive, delete, and pagination already wired to your chat | **Threads Drawer** | <DocsTrackedLink href="/ms-agent-python/prebuilt-components/copilot-threads-drawer" surface="docs_threads_drawer_customization">Set up the Threads Drawer →</DocsTrackedLink> |
-  | Build a custom layout, workflow, permission model, or thread action UI while CopilotKit continues to handle the backend | **Headless Threads** | [Build a custom thread UI →](/ms-agent-python/headless-threads) |
-
-</div>
-
-<div className="not-prose lg:hidden divide-y divide-fd-border overflow-hidden rounded-lg border border-fd-border">
-  <div className="p-5">
-
-  <p className="mb-2 text-lg font-semibold text-fd-foreground">Threads Drawer</p>
-
-  Ship a mobile-friendly conversation sidebar with switching, new conversations, archive, delete, and pagination already wired to your chat.
-
-  <DocsTrackedLink href="/ms-agent-python/prebuilt-components/copilot-threads-drawer" surface="docs_threads_drawer_customization" className="font-medium !text-[var(--accent)] !underline !decoration-[color-mix(in_oklch,var(--accent)_40%,transparent)] underline-offset-[3px] transition-colors hover:!decoration-[var(--accent)]">Set up the Threads Drawer →</DocsTrackedLink>
-
-  </div>
-  <div className="p-5">
-
-  <p className="mb-2 text-lg font-semibold text-fd-foreground">Headless Threads</p>
-
-  Build a custom layout, workflow, permission model, or thread action UI while CopilotKit continues to handle the backend.
-
-  <a href="/ms-agent-python/headless-threads" className="font-medium !text-[var(--accent)] !underline !decoration-[color-mix(in_oklch,var(--accent)_40%,transparent)] underline-offset-[3px] transition-colors hover:!decoration-[var(--accent)]">Build a custom thread UI →</a>
-
-  </div>
-</div>
+For how Intelligence and framework persistence work together, see [Threads & Persistence Architecture](/ms-agent-python/intelligence/threads-explained#how-threads-work-with-framework-storage).
 
 ## Sync existing conversations
 

@@ -1,7 +1,7 @@
 """Serves the Microsoft Agent Framework agents over AG-UI.
 
 `add_agent_framework_fastapi_endpoint` mounts an agent at a path on a normal
-FastAPI app. The Quickstart mounts one agent at `/`; this harness mounts three,
+FastAPI app. The Quickstart mounts one agent at `/`; this harness mounts five,
 because the Shared State and State Rendering pages each define their own
 `state_schema` and cannot share one agent (see `agents.py`).
 
@@ -29,19 +29,21 @@ load_dotenv(_BACKEND_ENV)
 load_dotenv(_ROOT_ENV, override=False)
 
 from agents import (  # noqa: E402 - must follow load_dotenv
+    create_a2ui_agent,
+    create_context_agent,
     create_main_agent,
     create_sample_agent,
     create_search_agent,
 )
 from chat_client import build_chat_client  # noqa: E402
 
-PORT = int(os.getenv("AGENT_PORT", "8000"))
+PORT = int(os.getenv("AGENT_PORT", "8020"))
 
 _ALLOWED_ORIGINS = [
     o.strip()
     for o in os.getenv(
         "AGENT_CORS_ORIGINS",
-        "http://localhost:3000,http://127.0.0.1:3000",
+        "http://localhost:3020,http://127.0.0.1:3020",
     ).split(",")
     if o.strip()
 ]
@@ -117,12 +119,13 @@ chat_client = build_chat_client()
 # Quickstart / Tool Rendering / everything with no state schema.
 add_agent_framework_fastapi_endpoint(app=app, agent=create_main_agent(chat_client), path="/")
 
-# Shared State read + write, and Readables.
+# Shared State read + write.
 #
-# `default_state` seeds the language before the first run. The docs seed it from
-# the frontend with `useAgent({ initialState })`, but that prop does not exist on
-# `useAgent` in @copilotkit/react-core 1.66.2 — `default_state` here is the
-# shipped equivalent.
+# `default_state` seeds the language before the first run. The pages used to
+# seed it from the frontend with `useAgent({ initialState })`, a prop the hook
+# has never had; they now seed in a `useEffect` gated on `isReady`, which the
+# hook does return. `default_state` stays because it is what makes the value
+# survive a re-run — the client seed only covers the first paint.
 # [3] shared state: agent endpoint
 # [!code highlight]
 add_agent_framework_fastapi_endpoint(
@@ -130,6 +133,19 @@ add_agent_framework_fastapi_endpoint(
     agent=create_sample_agent(chat_client),
     path="/sample_agent",
     default_state={"language": "english"},
+)
+
+# Agent App Context.
+#
+# Its own endpoint as of the 2026-09-04 drift. The page used to share the plain
+# `sample_agent` because it claimed the forwarded context needed no server-side
+# code; it now publishes a `ContextAwareAgent` that injects the context itself,
+# and that subclass carries no state schema, so it cannot share the Shared State
+# agent. See `agents.py` for why the new version is the correct one.
+# [5] agent app context: agent endpoint
+# [!code highlight]
+add_agent_framework_fastapi_endpoint(
+    app=app, agent=create_context_agent(chat_client), path="/context_agent"
 )
 
 # [4] state rendering: agent endpoint

@@ -89,7 +89,7 @@ import { CopilotKitIntelligence, CopilotRuntime } from "@copilotkit/runtime/v2";
 // `apiKey` is the only required field. The key scopes the project, so there is
 // no separate project or organization id to pass. See Connect your runtime.
 const intelligence = new CopilotKitIntelligence({
-  apiKey: process.env.INTELLIGENCE_API_KEY!,
+  apiKey: process.env.CPK_INTELLIGENCE_API_KEY!,
 });
 
 const runtime = new CopilotRuntime({
@@ -113,7 +113,7 @@ archive, unarchive, and delete operations. The project Runtime API key is a
 separate credential: keep it on the server and do not use the developer who
 created that key as the application user.
 
-[Connect your runtime to Intelligence](/ms-agent-python/premium/connect-your-runtime) covers the
+[Connect your runtime to Intelligence](/ms-agent-python/intelligence/quickstart) covers the
 `CopilotKitIntelligence` constructor in full — where the project API key comes
 from, the self-hosted `apiUrl` / `wsUrl` override rule, and how to confirm the
 credential is actually being read rather than silently ignored.
@@ -251,6 +251,6 @@ Practically, MCP App UI restores the same way the rest of the conversation does:
 ## See also
 
 - [Headless Threads](/ms-agent-python/headless-threads) — the full `useThreads` API
-- [Threads & Persistence Architecture](/ms-agent-python/premium/threads-explained) — server-side replay, resume, realtime sync
+- [Threads & Persistence Architecture](/ms-agent-python/intelligence/threads-explained) — server-side replay, resume, realtime sync
 - [Multi-conversation chat](/tutorials/multi-conversation-chat) — build a chat-history sidebar
 - [Importing and synchronizing thread history](/ms-agent-python/threads-import) — bring existing framework conversations into the platform and keep future runs continuous

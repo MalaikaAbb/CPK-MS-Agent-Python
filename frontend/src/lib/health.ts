@@ -1,5 +1,7 @@
 import "server-only";
 
+import { INTELLIGENCE_CONFIGURED } from "./intelligence-runtime";
+
 /**
  * Reachability + configuration snapshot for the connection panel.
  *
@@ -15,7 +17,7 @@ export interface HealthReport {
   licenseKeySet: boolean;
 }
 
-export const AGENT_URL = process.env.MS_AGENT_URL ?? "http://localhost:8000";
+export const AGENT_URL = process.env.MS_AGENT_URL ?? "http://localhost:8020";
 
 export async function getHealth(): Promise<HealthReport> {
   const statusUrl = `${AGENT_URL}/health`;
@@ -49,6 +51,9 @@ export async function getHealth(): Promise<HealthReport> {
     agent,
     agentUrl: AGENT_URL,
     authRequired,
-    licenseKeySet: Boolean(process.env.NEXT_PUBLIC_COPILOTKIT_LICENSE_KEY),
+    // The entitlement is server-side configuration, so report what the Runtime
+    // actually reads (the project API key) rather than the browser-side
+    // publishable key the provider no longer takes.
+    licenseKeySet: INTELLIGENCE_CONFIGURED,
   };
 }
