@@ -3,13 +3,11 @@
 > Turn your Microsoft Agent Framework agent into an agent-native application in 10 minutes.
 
 
-<OpsPlatformCTA
-  variant="card"
-  title="Ship Microsoft Agent Framework to production"
-  body="Add persistent threads and the inspector with CopilotKit Intelligence."
-  ctaLabel="Create a free account"
-  surface="docs_microsoft_agent_framework_quickstart"
-/>
+## Start with your coding agent
+
+Use this prompt to connect your Microsoft Agent Framework agent to CopilotKit and verify a working conversation. Your coding agent will follow this guide in your project, or you can work through the manual steps below.
+
+Ask your coding agent to follow the setup steps on this page for your selected framework and frontend.
 
 ## Prerequisites
 
@@ -26,7 +24,7 @@ Before you begin, you'll need the following:
     <Step>
         ### Set up CopilotKit Intelligence
 
-        <SignupLink surface="docs_microsoft_agent_framework_quickstart_step1">Sign up for a free developer account</SignupLink> for CopilotKit Intelligence to get a license key. You'll use it later to enable persistent threads and the inspector.
+        <SignupLink surface="docs_microsoft_agent_framework_quickstart_step1">Sign in to cloud-hosted Intelligence</SignupLink>. Cloud-hosted setup uses a server-side project API key and does not issue `COPILOTKIT_LICENSE_TOKEN`. You will connect the app after you create it below.
     </Step>
 
     <Step>
@@ -296,7 +294,7 @@ Before you begin, you'll need the following:
                 ### Install CopilotKit packages
 
                 ```npm
-                npm install @copilotkit/react-ui @copilotkit/react-core @copilotkit/runtime @ag-ui/client
+                npm install @copilotkit/react-ui @copilotkit/react-core @copilotkit/runtime @ag-ui/client@1.0.2
                 ```
             </Step>
             <Step>
@@ -327,7 +325,7 @@ Before you begin, you'll need the following:
                   },
                   // [!code highlight:8]
                   intelligence: new CopilotKitIntelligence({
-                    apiKey: process.env.INTELLIGENCE_API_KEY!,
+                    apiKey: process.env.CPK_INTELLIGENCE_API_KEY!,
                   }),
                   // Threads are per-user. Without this, every visitor shares one history.
                   identifyUser: (request) => ({
@@ -346,18 +344,23 @@ Before you begin, you'll need the following:
                 export const POST = handler;
                 ```
 
-                The runtime reads the license key from step 1. Add it to the app that serves
-                this route:
+                From this frontend app directory, connect the runtime to an Intelligence project:
 
-                ```plaintext title=".env.local"
-                INTELLIGENCE_API_KEY=your_license_key
+                ```bash title="Terminal"
+                npx copilotkit@latest project select
+                ```
+
+                The command writes the server-side project API key to `.env`. The runtime reads it here:
+
+                ```plaintext title=".env"
+                CPK_INTELLIGENCE_API_KEY=cpk-...
                 ```
 
                 <Callout type="info" title="Running without the Intelligence Platform?">
                   Drop the `intelligence` and `identifyUser` options and the runtime falls back
                   to SSE mode with an in-memory runner. Chat still works, but Threads and the
                   Inspector stay locked and the key is never read. See
-                  [Connect your runtime to Intelligence](/ms-agent-python/premium/connect-your-runtime) for the
+                  [Connect your runtime to Intelligence](/ms-agent-python/intelligence/quickstart) for the
                   full constructor and how to confirm the key is in use.
                 </Callout>
             </Step>
