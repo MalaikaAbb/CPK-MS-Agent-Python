@@ -178,7 +178,7 @@ add_agent_framework_fastapi_endpoint(app=app, agent=chart_agent.agent, path="/ge
 # be ignored anyway: the endpoint only forwards a2ui_config when it wraps a bare
 # agent, and the page's module already returns an AgentFrameworkAgent.)
 add_agent_framework_fastapi_endpoint(app=app, agent=a2ui_dynamic.agent, path="/declarative-gen-ui")
-add_agent_framework_fastapi_endpoint(app=app, agent=a2ui_fixed.agent, path="/a2ui-fixed-schema")
+# add_agent_framework_fastapi_endpoint(app=app, agent=a2ui_fixed.agent, path="/a2ui-fixed-schema")
 add_agent_framework_fastapi_endpoint(
     app=app, agent=create_byoc_json_render_agent(chat_client), path="/byoc-json-render"
 )
@@ -194,6 +194,13 @@ add_agent_framework_fastapi_endpoint(
     path="/open-gen-ui-advanced",
 )
 # endregion
+
+# Replace a2ui_fixed.agent with create_a2ui_agent(chat_client)
+add_agent_framework_fastapi_endpoint(
+    app=app,
+    agent=create_a2ui_agent(chat_client),
+    path="/a2ui-fixed-schema"
+)
 
 # region hitl-mounts
 add_agent_framework_fastapi_endpoint(app=app, agent=interrupt_flow.agent, path="/interrupt_flow")
