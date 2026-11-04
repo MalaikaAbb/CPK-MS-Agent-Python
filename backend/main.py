@@ -16,7 +16,15 @@ import os
 from pathlib import Path
 
 import uvicorn
-from agent_framework.ag_ui import add_agent_framework_fastapi_endpoint
+from agent_framework.ag_ui import (
+    add_agent_framework_fastapi_endpoint as _add_agent_framework_fastapi_endpoint,
+)
+
+
+def add_agent_framework_fastapi_endpoint(*args, **kwargs):
+    # agent-framework-ag-ui >= 1.7.0 requires explicit authorization configuration.
+    kwargs.setdefault("single_user", True)
+    return _add_agent_framework_fastapi_endpoint(*args, **kwargs)
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware

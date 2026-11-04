@@ -30,6 +30,11 @@ const runtime = new CopilotRuntime({
     context_agent: new HttpAgent({ url: `${AGENT_URL}/context_agent` }),
     a2ui_agent: new HttpAgent({ url: `${AGENT_URL}/a2ui-fixed-schema` }),
     interrupt_agent: new HttpAgent({ url: `${AGENT_URL}/interrupt_flow` }),
+    chart_agent: new HttpAgent({ url: `${AGENT_URL}/gen-ui-tool-based` }),
+    declarative_gen_ui_agent: new HttpAgent({ url: `${AGENT_URL}/declarative-gen-ui` }),
+    byoc_json_render: new HttpAgent({ url: `${AGENT_URL}/byoc-json-render` }),
+    byoc_hashbrown: new HttpAgent({ url: `${AGENT_URL}/byoc-hashbrown` }),
+    open_gen_ui: new HttpAgent({ url: `${AGENT_URL}/open-gen-ui` }),
   },
   runner: new InMemoryAgentRunner(),
 
