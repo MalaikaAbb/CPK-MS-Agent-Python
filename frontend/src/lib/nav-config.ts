@@ -171,6 +171,15 @@ export const NAV: NavGroup[] = [
         status: "working",
       },
       {
+        path: "/generative-ui/tool-based",
+        hasDemo: true,
+        title: "Components as Tools",
+        docPath: "/ms-agent-python/generative-ui/tool-based",
+        summary:
+          "Registering a React component as a tool with useComponent: the agent emits structured data and CopilotKit renders the component inline.",
+        status: "working",
+      },
+      {
         path: "/generative-ui/tool-rendering",
         hasDemo: true,
         title: "Tool Rendering",
@@ -198,6 +207,15 @@ export const NAV: NavGroup[] = [
         status: "working",
       },
       {
+        path: "/generative-ui/a2ui/dynamic-schema",
+        hasDemo: true,
+        title: "A2UI - Dynamic Schema",
+        docPath: "/ms-agent-python/generative-ui/a2ui/dynamic-schema",
+        summary:
+          "LLM-generated A2UI: a secondary LLM creates schema, data, and layout dynamically via generate_a2ui.",
+        status: "working",
+      },
+      {
         path: "/generative-ui/a2ui/styling",
         title: "A2UI · Styling",
         docPath: "/ms-agent-python/generative-ui/a2ui/styling",
@@ -216,6 +234,33 @@ export const NAV: NavGroup[] = [
         status: "not-started",
         statusNote:
           "Tracked for drift only — no demo yet. It builds on Dynamic Schema A2UI, which this repo does not map — only the fixed-schema half. DeepAgentspy-react implements the same page.",
+      },
+      {
+        path: "/generative-ui/json-render",
+        hasDemo: true,
+        title: "JSON Render",
+        docPath: "/ms-agent-python/generative-ui/json-render",
+        summary:
+          "Bring your own component library: agent emits a JSON spec rendered via @json-render/react and a Zod catalog.",
+        status: "working",
+      },
+      {
+        path: "/generative-ui/hashbrown",
+        hasDemo: true,
+        title: "Hashbrown",
+        docPath: "/ms-agent-python/generative-ui/hashbrown",
+        summary:
+          "Stream a structured sales dashboard through Hashbrown's UI kit and progressive JSON parser.",
+        status: "working",
+      },
+      {
+        path: "/generative-ui/open-generative-ui",
+        hasDemo: true,
+        title: "Open Generative UI",
+        docPath: "/ms-agent-python/generative-ui/open-generative-ui",
+        summary:
+          "Let agents generate fully interactive HTML/CSS/JS UIs that stream live into the chat.",
+        status: "working",
       },
       {
         path: "/generative-ui/frontend-cards",
@@ -251,6 +296,14 @@ export const NAV: NavGroup[] = [
           "Tracked for drift only — no demo yet. The page’s own verification steps need Chrome 149+ with the WebMCP origin trial or chrome://flags/#enable-webmcp-testing, and CopilotKit no-ops wherever document.modelContext is absent, so there is nothing a headless Chromium run can show.",
       },
       {
+        path: "/human-in-the-loop",
+        title: "HITL Overview",
+        docPath: "/ms-agent-python/human-in-the-loop",
+        summary:
+          "Overview of Human-in-the-Loop (HITL) patterns: interrupt-based and tool-based approval gates.",
+        status: "reference",
+      },
+      {
         path: "/human-in-the-loop/governed-actions",
         title: "Governed Actions",
         docPath: "/ms-agent-python/human-in-the-loop/governed-actions",
@@ -267,17 +320,17 @@ export const NAV: NavGroup[] = [
         docPath: "/ms-agent-python/human-in-the-loop/interrupt-flow",
         summary:
           "Gate a backend tool behind an approval that the agent raises itself, rendered with useInterrupt.",
-        status: "not-started",
-        statusNote: "Tracked for drift only — no demo yet.",
+        status: "working",
+        hasDemo: true,
       },
       {
         path: "/human-in-the-loop/tool-based",
+        hasDemo: true,
         title: "Tool-based",
         docPath: "/ms-agent-python/human-in-the-loop/tool-based",
         summary:
-          "Gate an action behind a frontend tool that renders UI and waits for the user.",
-        status: "not-started",
-        statusNote: "Tracked for drift only — no demo yet.",
+          "Gate an action behind a frontend tool with useHumanInTheLoop that renders UI and waits for the user.",
+        status: "working",
       },
     ],
   },

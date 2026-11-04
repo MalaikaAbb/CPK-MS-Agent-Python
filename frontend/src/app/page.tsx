@@ -119,6 +119,13 @@ export default function Page() {
                   no tools · Agent App Context (<code>ContextAwareAgent</code>)
                 </td>
               </tr>
+              <tr>
+                <td className="py-2 pr-4 font-mono text-xs">interrupt_agent</td>
+                <td className="py-2 pr-4 font-mono text-xs">:8020/interrupt_flow</td>
+                <td className="py-2 text-slate-600 dark:text-slate-400">
+                  <code>delete_file</code> · Interrupt-based HITL (<code>useInterrupt</code>)
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
