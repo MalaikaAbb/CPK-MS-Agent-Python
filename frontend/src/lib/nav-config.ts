@@ -267,8 +267,8 @@ export const NAV: NavGroup[] = [
         docPath: "/ms-agent-python/human-in-the-loop/interrupt-flow",
         summary:
           "Gate a backend tool behind an approval that the agent raises itself, rendered with useInterrupt.",
-        status: "not-started",
-        statusNote: "Tracked for drift only — no demo yet.",
+        status: "working",
+        hasDemo: true,
       },
       {
         path: "/human-in-the-loop/tool-based",
