@@ -30,7 +30,7 @@ export default function Page() {
 
       <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          `standardUI`'s ready-made components, extending it with your own, dropping components with `omit`, and replacing one with `overrides`.
+          <code>standardUI</code>&apos;s ready-made components, extending it with your own, dropping components with <code>omit</code>, and replacing one with <code>overrides</code>.
         </p>
       </Panel>
     </>
