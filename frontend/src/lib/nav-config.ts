@@ -287,14 +287,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/theming",
-        hasDemo: true,
         title: "Components · Theming",
         docPath: "/ms-agent-python/generative-ui/components/theming",
         summary:
           "The theme option's CSS variables, a typed GenerativeUITheme file, dark-mode overrides, map styles, and .a2ui-surface CSS.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). The dark-mode script renders in the demo body, not <head>; there is no manual dark toggle. The page's mapStyle URLs are placeholders, so the Map variant draws no basemap.",
+          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
       },
       {
         path: "/generative-ui/components/transports",
