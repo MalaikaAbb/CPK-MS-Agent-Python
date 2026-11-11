@@ -326,6 +326,17 @@ export const NAV: NavGroup[] = [
         hasDemo: true,
       },
       {
+        path: "/human-in-the-loop/useInterrupt",
+        hasDemo: true,
+        title: "Pausing the Agent for Input",
+        docPath: "/ms-agent-python/human-in-the-loop/useInterrupt",
+        summary:
+          "useInterrupt's standard and legacy interrupt flows, plus a frontend-tool Promise pause for runtimes that can't stop mid-tool.",
+        status: "broken",
+        statusNote:
+          "The page's frontend useFrontendTool Promise handler (schedule_meeting) is a skipped snippet on the live page and isn't written in. The backend create_interrupt_agent is verbatim and mounted at /gen-ui-interrupt; its schedule_meeting calls have no handler. Not yet checked in a browser.",
+      },
+      {
         path: "/human-in-the-loop/tool-based",
         hasDemo: true,
         title: "Tool-based",

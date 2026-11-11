@@ -35,6 +35,8 @@ const runtime = new CopilotRuntime({
     byoc_json_render: new HttpAgent({ url: `${AGENT_URL}/byoc-json-render` }),
     byoc_hashbrown: new HttpAgent({ url: `${AGENT_URL}/byoc-hashbrown` }),
     open_gen_ui: new HttpAgent({ url: `${AGENT_URL}/open-gen-ui` }),
+    // Pausing the Agent for Input page: its `create_interrupt_agent`.
+    gen_ui_interrupt: new HttpAgent({ url: `${AGENT_URL}/gen-ui-interrupt` }),
   },
   runner: new InMemoryAgentRunner(),
 

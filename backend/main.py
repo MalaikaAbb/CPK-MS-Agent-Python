@@ -93,6 +93,7 @@ AGENT_PATHS = {
     "/open-gen-ui-advanced",
     "/interrupt_flow",
     "/subagents",
+    "/gen-ui-interrupt",
 }
 
 
@@ -212,6 +213,16 @@ add_agent_framework_fastapi_endpoint(
 
 # region hitl-mounts
 add_agent_framework_fastapi_endpoint(app=app, agent=interrupt_flow.agent, path="/interrupt_flow")
+# endregion
+
+# Pausing the Agent for Input (useInterrupt page): the page's
+# `create_interrupt_agent`, mounted at its demo id.
+from doc_agents.interrupt_agent import create_interrupt_agent  # noqa: E402
+
+# region use-interrupt-mount
+add_agent_framework_fastapi_endpoint(
+    app=app, agent=create_interrupt_agent(chat_client), path="/gen-ui-interrupt"
+)
 # endregion
 
 # region multi-agent-mounts
