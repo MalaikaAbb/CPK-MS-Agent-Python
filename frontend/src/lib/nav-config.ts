@@ -343,9 +343,9 @@ export const NAV: NavGroup[] = [
         docPath: "/ms-agent-python/human-in-the-loop/headless",
         summary:
           "A Promise-returning useFrontendTool handler that drives a picker outside the chat, with render: () => null in the transcript.",
-        status: "partial",
+        status: "broken",
         statusNote:
-          "The page prints only the useFrontendTool fragment: the state/ref declarations, PickerResult and the app-surface picker around it are labelled minimal additions. No backend is printed, so it reuses the useInterrupt page's scheduling agent. Not yet checked in a browser.",
+          "The page prints only the useFrontendTool fragment, which uses setPending and resolverRef without declaring them, and no picker. Mounted verbatim, gaps not filled, so the handler throws when called. No backend is printed, so it reuses the useInterrupt page's scheduling agent. Not yet checked in a browser.",
       },
       {
         path: "/human-in-the-loop/tool-based",

@@ -5,23 +5,21 @@
  * https://docs.copilotkit.ai/ms-agent-python/human-in-the-loop/headless
  *
  * The page prints one fragment of its demo's `page.tsx`: the
- * `useFrontendTool({ name: "schedule_meeting", ... })` call, which sits inside
- * a component body. That fragment is between the `region headless-tool`
- * markers, verbatim. Everything around it is NOT FROM THE DOC PAGE and is
- * kept to the minimum the fragment needs in order to mount:
+ * `useFrontendTool({ name: "schedule_meeting", ... })` call from inside a
+ * component body. It's mounted here verbatim, between the `region
+ * headless-tool` markers, inside a bare component.
  *
- * - the imports;
- * - `PickerResult` (a type) and the `pending` state / `resolverRef` ref that
- *   the fragment calls but never declares;
- * - `TimePicker`, a minimal app-surface UI component that shows the pending
- *   request and resolves the ref (the page names the "app surface" but
- *   prints no component for it);
- * - the layout: chat on one side, app surface on the other.
+ * Not filled in (route `broken`): the fragment calls `setPending` and
+ * `resolverRef`, which the page never declares. They're left undeclared, with
+ * `@ts-expect-error` on each use, so the handler throws a ReferenceError
+ * when the agent calls `schedule_meeting`. The page also describes an "app
+ * surface" picker but prints none, so there isn't one.
  *
- * Agent: the page prints no backend. The demo id is `interrupt-headless`, and
- * the section's only scheduling agent is the useInterrupt page's
- * `create_interrupt_agent` (agent id `gen_ui_interrupt`), which tells the
- * model to call `schedule_meeting`. This route reuses it.
+ * Harness glue, NOT FROM THE DOC PAGE: the imports, the `PickerResult` type
+ * (the fragment references it; its shape is inferred from the fields the
+ * handler reads), the wrapper component and the chat layout. Agent: the page
+ * prints no backend, so this reuses the useInterrupt page's scheduling agent
+ * (`gen_ui_interrupt`).
  */
 
 import {
@@ -29,20 +27,14 @@ import {
   CopilotChatConfigurationProvider,
   useFrontendTool,
 } from "@copilotkit/react-core/v2";
-import { useRef, useState } from "react";
 import { z } from "zod";
 
 import { DemoFrame } from "@/components/demo-frame";
 
-// NOT FROM THE DOC PAGE: the shapes the fragment uses.
+// NOT FROM THE DOC PAGE: the type the fragment references.
 type PickerResult = { chosen_label: string } | { cancelled: true };
-type Pending = { topic: string; attendee?: string };
 
 function HeadlessScheduler() {
-  // NOT FROM THE DOC PAGE: state and ref the fragment calls but never declares.
-  const [pending, setPending] = useState<Pending | null>(null);
-  const resolverRef = useRef<((result: PickerResult) => void) | null>(null);
-
   // region headless-tool
   useFrontendTool({
     name: "schedule_meeting",
@@ -70,10 +62,13 @@ function HeadlessScheduler() {
       topic: string;
       attendee?: string;
     }): Promise<string> => {
+      // @ts-expect-error -- doc gap: `setPending` is never declared on the page
       setPending({ topic, attendee });
       const result = await new Promise<PickerResult>((resolve) => {
+        // @ts-expect-error -- doc gap: `resolverRef` is never declared on the page
         resolverRef.current = resolve;
       });
+      // @ts-expect-error -- doc gap: `setPending` is never declared on the page
       setPending(null);
       if ("cancelled" in result && result.cancelled) {
         return "User cancelled. Meeting NOT scheduled.";
@@ -88,79 +83,18 @@ function HeadlessScheduler() {
   });
   // endregion
 
-  return (
-    <TimePicker
-      pending={pending}
-      onResult={(result) => resolverRef.current?.(result)}
-    />
-  );
-}
-
-/**
- * NOT FROM THE DOC PAGE: a minimal picker for the "app surface". The page
- * describes it but prints no component. Fixed slot labels, no calendar.
- */
-const SLOTS = ["Tomorrow 10:00", "Tomorrow 14:00", "Friday 09:30"];
-
-function TimePicker({
-  pending,
-  onResult,
-}: {
-  pending: Pending | null;
-  onResult: (result: PickerResult) => void;
-}) {
-  if (!pending) {
-    return (
-      <p className="text-sm text-slate-500">
-        No pending request. Ask the chat to book a meeting.
-      </p>
-    );
-  }
-  return (
-    <div className="space-y-3 text-sm">
-      <p>
-        <strong>{pending.topic}</strong>
-        {pending.attendee ? ` with ${pending.attendee}` : ""}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {SLOTS.map((label) => (
-          <button
-            key={label}
-            type="button"
-            className="rounded-md border border-slate-300 px-3 py-1.5 dark:border-slate-600"
-            onClick={() => onResult({ chosen_label: label })}
-          >
-            {label}
-          </button>
-        ))}
-        <button
-          type="button"
-          className="rounded-md px-3 py-1.5 text-slate-500 underline"
-          onClick={() => onResult({ cancelled: true })}
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  );
+  return null;
 }
 
 export default function Page() {
   return (
     <DemoFrame
       parentPath="/human-in-the-loop/headless"
-      subtitle="useFrontendTool · picker outside the chat · agent: gen_ui_interrupt"
+      subtitle="useFrontendTool fragment · undeclared setPending/resolverRef (doc gap) · agent: gen_ui_interrupt"
     >
       <CopilotChatConfigurationProvider agentId="gen_ui_interrupt">
-        <div className="grid h-full grid-cols-1 lg:grid-cols-2">
-          <div className="min-h-0 overflow-y-auto border-b border-slate-200 p-4 lg:border-b-0 lg:border-r dark:border-slate-800">
-            <h2 className="mb-3 text-base font-semibold">App surface</h2>
-            <HeadlessScheduler />
-          </div>
-          <div className="min-h-0">
-            <CopilotChat className="h-full" />
-          </div>
-        </div>
+        <HeadlessScheduler />
+        <CopilotChat className="h-full" />
       </CopilotChatConfigurationProvider>
     </DemoFrame>
   );
