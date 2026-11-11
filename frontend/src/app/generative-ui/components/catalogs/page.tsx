@@ -30,7 +30,7 @@ export default function Page() {
 
       <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          `createGenerativeUI` catalogs: typed component props, zod or Valibot schemas, `slots`/`child()`, `extends`, `parameterOrder` and `exportA2UICatalog`.
+          <code>createGenerativeUI</code> catalogs: typed component props, zod or Valibot schemas, <code>slots</code>/<code>child()</code>, <code>extends</code>, <code>parameterOrder</code> and <code>exportA2UICatalog</code>.
         </p>
       </Panel>
     </>
