@@ -277,14 +277,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/state-and-actions",
-        hasDemo: true,
         title: "Components · State and actions",
         docPath: "/ms-agent-python/generative-ui/components/state-and-actions",
         summary:
           "App state bound into props, functions run on click, events sent to the agent, and writable props that keep user input.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). Cart, cart.addItem, the state-catalog ProductCard and the catalogs around the fragment snippets are repo scaffolding; the catalogs are used as published (no layout container), and there is no cart view, add-to-cart buttons or PlanCard. The \"Send a click\" events fragment names no component and is not exercised. Renderer functions cannot be called by the agent in this version, so allowedCallers is shown as exported only.",
+          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
       },
       {
         path: "/generative-ui/components/theming",
