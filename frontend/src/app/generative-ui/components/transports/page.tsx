@@ -30,7 +30,7 @@ export default function Page() {
 
       <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          The `render_ui` tool transport vs `a2ui` code blocks in markdown, the runtime's `generativeUI` option, and `agentIds` scoping.
+          The <code>render_ui</code> tool transport vs <code>a2ui</code> code blocks in markdown, the runtime&apos;s <code>generativeUI</code> option, and <code>agentIds</code> scoping.
         </p>
       </Panel>
     </>
