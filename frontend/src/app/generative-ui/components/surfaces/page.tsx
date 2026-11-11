@@ -30,7 +30,7 @@ export default function Page() {
 
       <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          `GenerativeUISurface` page targets the chat can fill, with an id, a description the agent reads, a `components` limit, `autoScroll` and per-item targets, plus the provider's per-component `errorBoundary`.
+          <code>GenerativeUISurface</code> page targets the chat can fill, with an id, a description the agent reads, a <code>components</code> limit, <code>autoScroll</code> and per-item targets, plus the provider&apos;s per-component <code>errorBoundary</code>.
         </p>
       </Panel>
     </>

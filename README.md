@@ -296,7 +296,7 @@ The code on a page is never a re-typed approximation: each page reads real files
 
 **`/generative-ui/components/transports`** — 📖 Reference. The `render_ui` tool transport vs `a2ui` code blocks in markdown, the runtime's `generativeUI` option, and `agentIds` scoping. Not implemented until CopilotKit is upgraded.
 
-**`/generative-ui/components/markdown-mode`** — 📖 Reference. The agent writes A2UI operations in `a2ui` code blocks inside its reply (`transport: \"markdown\"`), and `sendContext: false` moves the catalog into `forwardedProps`. Not implemented until CopilotKit is upgraded.
+**`/generative-ui/components/markdown-mode`** — 📖 Reference. The agent writes A2UI operations in `a2ui` code blocks inside its reply (`transport: "markdown"`), and `sendContext: false` moves the catalog into `forwardedProps`. Not implemented until CopilotKit is upgraded.
 
 **`/generative-ui/components/from-a2ui`** — 📖 Reference. Moving from the v0.9 `a2ui` renderer to the A2UI 1.0 engine: provider, Before/After catalogs, the operations mapping, and a support matrix. Not implemented until CopilotKit is upgraded.
 
