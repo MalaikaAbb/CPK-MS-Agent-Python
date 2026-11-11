@@ -257,14 +257,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/catalogs",
-        hasDemo: true,
         title: "Components · Catalogs",
         docPath: "/ms-agent-python/generative-ui/components/catalogs",
         summary:
           "createGenerativeUI catalogs: typed components, zod and Valibot props, extends, parameterOrder and exportA2UICatalog.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). Hero, Panel and cartUI are repo scaffolding. The catalog is used as published (no standardUI layout added). fs.writeFileSync is kept as a // doc: comment (Node-only).",
+          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
       },
       {
         path: "/generative-ui/components/standard-catalog",
