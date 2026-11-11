@@ -97,12 +97,12 @@ export default function Page() {
         standalone runtime server and an absolute URL instead.
       </Callout>
 
-      <Callout tone="warn" title="Model id in the docs">
-        The Quickstart&apos;s env block sets{" "}
-        <code>OPENAI_CHAT_MODEL_ID=gpt-5.4-mini</code> while the Python code
-        directly beneath it defaults to <code>gpt-5.4-mini</code>. This repo keeps
-        the code&apos;s default and lets <code>OPENAI_CHAT_MODEL_ID</code>{" "}
-        override it.
+      <Callout tone="info" title="Model id in the docs">
+        Since the 2026-11 sync the Quickstart&apos;s env blocks and the Python
+        code beneath them agree on <code>gpt-6-luna</code> for both the OpenAI
+        and Azure OpenAI paths. This repo keeps that default and lets{" "}
+        <code>OPENAI_CHAT_MODEL_ID</code> /{" "}
+        <code>AZURE_OPENAI_CHAT_DEPLOYMENT_NAME</code> override it.
       </Callout>
     </>
   );

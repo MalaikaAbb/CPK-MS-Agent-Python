@@ -41,7 +41,7 @@ Next.js 16 App Router  ·  localhost:3020
 FastAPI + agent-framework-ag-ui  ·  localhost:8020     ← Python
   │  add_agent_framework_fastapi_endpoint(app, agent, path)
   ▼
-OpenAI or Azure OpenAI  (gpt-4o-mini by default)
+OpenAI or Azure OpenAI  (gpt-6-luna by default)
 ```
 
 Four points worth noting:
@@ -162,7 +162,7 @@ Then edit `backend/.env`:
 | Variable                            | Where                 | What it does                                                                               |
 | ----------------------------------- | --------------------- | ------------------------------------------------------------------------------------------ |
 | `OPENAI_API_KEY`                    | `backend/.env`        | **Required** (unless using Azure). The backend refuses to start with neither provider set. |
-| `OPENAI_CHAT_MODEL_ID`              | `backend/.env`        | Model id. Defaults to `gpt-4o-mini`.                                                       |
+| `OPENAI_CHAT_MODEL_ID`              | `backend/.env`        | Model id. Defaults to `gpt-6-luna`.                                                       |
 | `AZURE_OPENAI_ENDPOINT`             | `backend/.env`        | Use Azure instead. Takes precedence when set.                                              |
 | `AZURE_OPENAI_CHAT_DEPLOYMENT_NAME` | `backend/.env`        | Azure deployment name.                                                                     |
 | `AGENT_PORT`                        | `backend/.env`        | Defaults to `8020`.                                                                        |
