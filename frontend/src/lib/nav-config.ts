@@ -337,6 +337,17 @@ export const NAV: NavGroup[] = [
           "The page's frontend useFrontendTool Promise handler (schedule_meeting) is a skipped snippet on the live page and isn't written in. The backend create_interrupt_agent is verbatim and mounted at /gen-ui-interrupt; its schedule_meeting calls have no handler. Not yet checked in a browser.",
       },
       {
+        path: "/human-in-the-loop/headless",
+        hasDemo: true,
+        title: "Headless Interrupts",
+        docPath: "/ms-agent-python/human-in-the-loop/headless",
+        summary:
+          "A Promise-returning useFrontendTool handler that drives a picker outside the chat, with render: () => null in the transcript.",
+        status: "partial",
+        statusNote:
+          "The page prints only the useFrontendTool fragment: the state/ref declarations, PickerResult and the app-surface picker around it are labelled minimal additions. No backend is printed, so it reuses the useInterrupt page's scheduling agent. Not yet checked in a browser.",
+      },
+      {
         path: "/human-in-the-loop/tool-based",
         hasDemo: true,
         title: "Tool-based",
