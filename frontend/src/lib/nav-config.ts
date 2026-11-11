@@ -317,14 +317,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/from-a2ui",
-        hasDemo: true,
         title: "Components · Adopt from A2UI",
         docPath: "/ms-agent-python/generative-ui/components/from-a2ui",
         summary:
           "The v0.9 a2ui renderer → A2UI 1.0 migration: the After catalog running on the new engine, with the Before code shown.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). Airport and Arrow are repo scaffolding. The support matrix rules out @ag-ui/a2ui-toolkit 0.0.5 agent tools.",
+          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
       },
       {
         path: "/generative-ui/json-render",
