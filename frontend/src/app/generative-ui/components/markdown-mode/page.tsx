@@ -30,7 +30,7 @@ export default function Page() {
 
       <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          The agent writes A2UI operations in `a2ui` code blocks inside its reply (`transport: \"markdown\"`), and `sendContext: false` moves the catalog into `forwardedProps`.
+          The agent writes A2UI operations in <code>a2ui</code> code blocks inside its reply (<code>transport: &quot;markdown&quot;</code>), and <code>sendContext: false</code> moves the catalog into <code>forwardedProps</code>.
         </p>
       </Panel>
     </>
