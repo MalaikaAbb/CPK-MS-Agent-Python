@@ -298,10 +298,12 @@ export const NAV: NavGroup[] = [
       {
         path: "/human-in-the-loop",
         title: "HITL Overview",
-        docPath: "/ms-agent-python/human-in-the-loop",
+        docPath: "/ms-agent-python/human-in-the-loop/index",
         summary:
           "Overview of Human-in-the-Loop (HITL) patterns: interrupt-based and tool-based approval gates.",
         status: "reference",
+        statusNote:
+          "Prose-only page that links to the two pattern routes. Its cards link to the unprefixed /human-in-the-loop/* doc pages.",
       },
       {
         path: "/human-in-the-loop/governed-actions",
