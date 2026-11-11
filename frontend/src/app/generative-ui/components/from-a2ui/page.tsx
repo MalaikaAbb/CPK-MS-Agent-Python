@@ -30,7 +30,7 @@ export default function Page() {
 
       <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          Moving from the v0.9 `a2ui` renderer to the A2UI 1.0 engine: provider, Before/After catalogs, the operations mapping, and a support matrix.
+          Moving from the v0.9 <code>a2ui</code> renderer to the A2UI 1.0 engine: provider, Before/After catalogs, the operations mapping, and a support matrix.
         </p>
       </Panel>
     </>
