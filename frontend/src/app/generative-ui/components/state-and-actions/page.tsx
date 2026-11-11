@@ -30,7 +30,7 @@ export default function Page() {
 
       <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          Binding app state into props, functions that run on a click, events sent to the agent, and `writable` props that keep what users type.
+          Binding app state into props, functions that run on a click, events sent to the agent, and <code>writable</code> props that keep what users type.
         </p>
       </Panel>
     </>
