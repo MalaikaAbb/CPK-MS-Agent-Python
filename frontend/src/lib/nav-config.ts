@@ -267,14 +267,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/standard-catalog",
-        hasDemo: true,
         title: "Components · Standard catalog",
         docPath: "/ms-agent-python/generative-ui/components/standard-catalog",
         summary:
           "standardUI's 69 components as is, extended with a ProductCard, with Map/Video/HtmlView omitted, and with Card overridden.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). ProductCard and productSchema are repo scaffolding.",
+          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
       },
       {
         path: "/generative-ui/components/state-and-actions",

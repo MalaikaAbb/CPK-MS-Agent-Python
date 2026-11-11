@@ -288,7 +288,7 @@ The code on a page is never a re-typed approximation: each page reads real files
 
 **`/generative-ui/components/catalogs`** — 📖 Reference. `createGenerativeUI` catalogs: typed component props, zod or Valibot schemas, `slots`/`child()`, `extends`, `parameterOrder` and `exportA2UICatalog`. Not implemented until CopilotKit is upgraded.
 
-**`/generative-ui/components/standard-catalog`** — ⚠️ Partial. `standardUI` as is, extended, with `omit`, and with a `Card` override. **Try:** "Show the Eiffel Tower and the Louvre on a map.". **Pass:** a MapLibre map on `standardUI`, and no map on the omit variant. **Fail:** a plain list on `standardUI`, so `maplibre-gl` did not load.
+**`/generative-ui/components/standard-catalog`** — 📖 Reference. `standardUI`'s ready-made components, extending it with your own, dropping components with `omit`, and replacing one with `overrides`. Not implemented until CopilotKit is upgraded.
 
 **`/generative-ui/components/state-and-actions`** — ⚠️ Partial. `bind` from app state, functions on click, events sent to the agent, writable props. **Try:** "Show a product card for p1 Trail Runner.". **Pass:** "In cart: 0" from app state (nothing on the page adds to the cart; no cart view, add-to-cart buttons or PlanCard, and the catalogs are used as published with no layout container). **Fail:** the agent invents the cart count.
 
@@ -370,7 +370,7 @@ All three are recorded by the autorecorder (`npm run record -- --threads-drawer`
 | `/ms-agent-python/generative-ui/components` | `/generative-ui/components` | 📖 Reference | — | Needs `/v2/generative-ui` (CopilotKit ≥1.84); lockfile installs 1.73.3. Not implemented; no dependency bump in doc-sync. |
 | `/ms-agent-python/generative-ui/components/surfaces` | `/generative-ui/components/surfaces` | 📖 Reference | — | Needs `/v2/generative-ui` (CopilotKit ≥1.84); lockfile installs 1.73.3. Not implemented; no dependency bump in doc-sync. |
 | `/ms-agent-python/generative-ui/components/catalogs` | `/generative-ui/components/catalogs` | 📖 Reference | — | Needs `/v2/generative-ui` (CopilotKit ≥1.84); lockfile installs 1.73.3. Not implemented; no dependency bump in doc-sync. |
-| `/ms-agent-python/generative-ui/components/standard-catalog` | `/generative-ui/components/standard-catalog` | ⚠️ Partial | — | New 2026-11-11, ported from aws-strands-py. Agent: MAF `genui` (ContextAwareAgent), not the doc's TanStack BuiltInAgent. Not yet checked in a browser — §9. |
+| `/ms-agent-python/generative-ui/components/standard-catalog` | `/generative-ui/components/standard-catalog` | 📖 Reference | — | Needs `/v2/generative-ui` (CopilotKit ≥1.84); lockfile installs 1.73.3. Not implemented; no dependency bump in doc-sync. |
 | `/ms-agent-python/generative-ui/components/state-and-actions` | `/generative-ui/components/state-and-actions` | ⚠️ Partial | — | New 2026-11-11, ported from aws-strands-py. Agent: MAF `genui` (ContextAwareAgent), not the doc's TanStack BuiltInAgent. Not yet checked in a browser — §9. |
 | `/ms-agent-python/generative-ui/components/theming` | `/generative-ui/components/theming` | ⚠️ Partial | — | New 2026-11-11, ported from aws-strands-py. Agent: MAF `genui` (ContextAwareAgent), not the doc's TanStack BuiltInAgent. Not yet checked in a browser — §9. |
 | `/ms-agent-python/generative-ui/components/transports` | `/generative-ui/components/transports` | ⚠️ Partial | — | New 2026-11-11, ported from aws-strands-py. Agent: MAF `genui` (ContextAwareAgent), not the doc's TanStack BuiltInAgent. Not yet checked in a browser — §9. |
