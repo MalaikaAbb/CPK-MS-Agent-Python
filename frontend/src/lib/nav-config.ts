@@ -388,7 +388,7 @@ export const NAV: NavGroup[] = [
         title: "Overview",
         docPath: "/ms-agent-python/threads",
         summary:
-          "What Rich Threads persist, and the credentials this section needs before any of it works.",
+          "What AG-UI Streams (formerly Rich Threads) record, and the credentials this section needs before any of it works.",
         status: "partial",
         statusNote:
           "Runs on its own Intelligence-backed runtime endpoint, on a free-tier license that expires 2026-09-12.",
