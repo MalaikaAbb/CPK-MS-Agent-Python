@@ -378,6 +378,17 @@ export const NAV: NavGroup[] = [
           "Forwarding a bearer token from the provider to the AG-UI server, and validating it there.",
         status: "working",
       },
+      {
+        path: "/multi-agent/subagents",
+        hasDemo: true,
+        title: "Sub-agents",
+        docPath: "/ms-agent-python/multi-agent/subagents",
+        summary:
+          "A supervisor agent that delegates to research, writing and critique agents exposed as tools, with a live delegation log in shared state.",
+        status: "broken",
+        statusNote:
+          "Demo Code tab imports two unpublished modules (inferActiveSubAgent, suggestions), which are commented out, and two unpublished components, added minimally. Not yet checked in a browser.",
+      },
     ],
   },
   {
