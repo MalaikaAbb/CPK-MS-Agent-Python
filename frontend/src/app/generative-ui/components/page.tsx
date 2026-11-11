@@ -1,9 +1,18 @@
 import { RouteHeader } from "@/components/route-header";
-import { SourceCodeGroup } from "@/components/source-code";
-import { Callout, CodeBlock, Panel, TryIt } from "@/components/ui";
+import { Callout, CodeBlock, Panel } from "@/components/ui";
 
-// The page's runtime sample, verbatim. Shown, not run: it is a BuiltInAgent
-// TanStack factory, and this harness's agents are Microsoft Agent Framework agents.
+/**
+ * Reference-only: Components and surfaces (overview)
+ * https://docs.copilotkit.ai/ms-agent-python/generative-ui/components
+ *
+ * Not implemented. The section needs @copilotkit/react-core/v2/generative-ui,
+ * which the installed CopilotKit (1.73.3 per the lockfile) doesn't ship. See
+ * README §9 (Pending review).
+ */
+
+// The page's runtime sample, verbatim. Shown, not run. It's a TanStack
+// BuiltInAgent factory; if this route is ever made live, it has to run on this
+// framework's own agent instead (framework-own-agents).
 const RUNTIME = `import { chat } from "@tanstack/ai";
 import { openaiText } from "@tanstack/ai-openai";
 import {
@@ -59,70 +68,38 @@ export default function Page() {
     <>
       <RouteHeader path="/generative-ui/components" />
 
-      <Callout tone="warn" title="Agent: Microsoft Agent Framework, not the doc's BuiltInAgent">
+      <Callout tone="warn" title="Reference only: needs a newer CopilotKit than this repo installs">
         <p>
-          The Components and surfaces pages publish a backend only as a TanStack{" "}
-          <code>BuiltInAgent</code> factory, which is not a Microsoft Agent Framework agent. This
-          harness runs its own framework&apos;s agent in that slot: a
-          tool-free Microsoft Agent Framework <code>genui</code> agent
-          (<code>backend/doc_agents/genui_agent.py</code>) whose prompt is the
-          factory&apos;s, verbatim, reached over AG-UI through{" "}
-          <code>/api/copilotkit-genui</code>. Doc gap, README §9 (Pending review). The
-          page&apos;s frontend code below is kept verbatim and type-checked.
-          Not yet checked in a browser.
+          This repo's lockfile installs <code>@copilotkit/react-core</code>{" "}
+          <strong>1.73.3</strong>, which has no{" "}
+          <code>@copilotkit/react-core/v2/generative-ui</code> entry point. That
+          entry point (<code>standardUI</code>, <code>createGenerativeUI</code>,{" "}
+          <code>GenerativeUISurface</code>, &hellip;) first ships in 1.84. Every
+          snippet on this page needs it, so none of it can compile or run here.
+          Doc-sync does not bump dependencies, so the route is reference-only
+          until the repo is upgraded. The docs don&apos;t state a minimum
+          version.
         </p>
       </Callout>
 
-      <Panel title="What it demonstrates">
+      <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          A2UI 1.0 components drawn by the agent: put a catalog on the provider
-          (<code>generativeUI=&#123;&#123; ui: standardUI &#125;&#125;</code>) and
-          the runtime adds a <code>render_ui</code> tool plus a guide to every
-          run, so the model can answer with real UI (tables, charts, cards)
-          that fills in while it streams.
+          A2UI 1.0 components drawn by the agent. You put a catalog on the
+          provider (<code>generativeUI=&#123;&#123; ui: standardUI &#125;&#125;</code>)
+          and the runtime adds a <code>render_ui</code> tool plus a guide to
+          every run, so the model can answer with real UI (tables, charts,
+          cards) that fills in as it streams. The only backend printed is a
+          TanStack <code>BuiltInAgent</code> factory. This repo would have to
+          run its own Microsoft Agent Framework agent in its place, and no
+          such agent is wired while the route is reference-only.
         </p>
-        <div className="mt-4">
-          <TryIt
-            prompts={[
-              "Compare the Starter, Team, and Enterprise plans in a table",
-              "add a column for support",
-            ]}
-            expect="A table streams into the chat; the follow-up changes the same table in place."
-            fail="The chat errors (is the agent server up, with genui mounted?), or a plain text reply with no table: the run's render_ui tool or catalog guide did not reach the Microsoft Agent Framework agent."
-          />
-        </div>
       </Panel>
 
-      <Callout tone="warn" title="Runtime differs from the page">
-        <p>
-          The page&apos;s runtime is a <code>BuiltInAgent</code> TanStack
-          factory (below, shown verbatim, not run): the doc prints a TanStack
-          BuiltInAgent; this harness runs a Microsoft Agent Framework agent. The demo&apos;s
-          provider points at <code>/api/copilotkit-genui</code>, which keeps
-          the page&apos;s <code>CopilotRuntime</code> options and swaps only
-          the agent for the Microsoft Agent Framework <code>genui</code> agent. No tools (the
-          factory defines none of its own); <code>agent-framework-ag-ui</code>{" "}
-          forwards the run&apos;s <code>render_ui</code> tool, and the Agent App
-          Context page&apos;s <code>ContextAwareAgent</code> folds the run&apos;s
-          context (the catalog guide) into the request.
-        </p>
-      </Callout>
-
-      <Panel title="The page's provider and runtime">
+      <Panel title="The page's provider and runtime (shown, not run)">
         <CodeBlock code={PROVIDERS} filename="app/providers.tsx (doc)" language="tsx" />
         <div className="mt-3">
-          <CodeBlock code={RUNTIME} filename="app/api/copilotkit/[[...slug]]/route.ts (doc, not run)" language="ts" />
+          <CodeBlock code={RUNTIME} filename="app/api/copilotkit/[[...slug]]/route.ts (doc)" language="ts" />
         </div>
-      </Panel>
-
-      <Panel title="What runs here">
-        <SourceCodeGroup
-          files={[
-            { file: "frontend/src/app/generative-ui/components/demo-chat/page.tsx" },
-            { file: "frontend/src/app/api/copilotkit-genui/[[...slug]]/route.ts" },
-            { file: "backend/doc_agents/genui_agent.py" },
-          ]}
-        />
       </Panel>
     </>
   );

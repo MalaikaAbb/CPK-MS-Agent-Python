@@ -93,7 +93,6 @@ AGENT_PATHS = {
     "/open-gen-ui-advanced",
     "/interrupt_flow",
     "/subagents",
-    "/genui",
 }
 
 
@@ -213,14 +212,6 @@ add_agent_framework_fastapi_endpoint(
 
 # region hitl-mounts
 add_agent_framework_fastapi_endpoint(app=app, agent=interrupt_flow.agent, path="/interrupt_flow")
-# endregion
-
-# Components and surfaces pages (TanStack BuiltInAgent in the docs; this repo's
-# own agent instead, see doc_agents/genui_agent.py).
-from doc_agents.genui_agent import create_genui_agent  # noqa: E402
-
-# region genui-mount
-add_agent_framework_fastapi_endpoint(app=app, agent=create_genui_agent(chat_client), path="/genui")
 # endregion
 
 # region multi-agent-mounts

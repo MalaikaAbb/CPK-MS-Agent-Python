@@ -237,14 +237,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components",
-        hasDemo: true,
         title: "Components and surfaces",
         docPath: "/ms-agent-python/generative-ui/components",
         summary:
           "standardUI on the provider: the runtime adds render_ui and its guide, and the agent answers with streamed A2UI 1.0 components.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). The page's TanStack runtime is shown, not run; the provider config is verbatim. Not yet checked in a browser.",
+          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9). The page's provider and TanStack runtime are shown as text.",
       },
       {
         path: "/generative-ui/components/surfaces",
