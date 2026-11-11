@@ -30,7 +30,7 @@ export default function Page() {
 
       <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          The provider's `theme` CSS variables, a typed `GenerativeUITheme` file, dark-mode overrides, map styles and `.a2ui-surface` CSS.
+          The provider&apos;s <code>theme</code> CSS variables, a typed <code>GenerativeUITheme</code> file, dark-mode overrides, map styles and <code>.a2ui-surface</code> CSS.
         </p>
       </Panel>
     </>
