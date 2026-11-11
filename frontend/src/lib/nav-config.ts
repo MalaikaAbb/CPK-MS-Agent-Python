@@ -236,6 +236,105 @@ export const NAV: NavGroup[] = [
           "Tracked for drift only — no demo yet. It builds on Dynamic Schema A2UI, which this repo does not map — only the fixed-schema half. DeepAgentspy-react implements the same page.",
       },
       {
+        path: "/generative-ui/components",
+        hasDemo: true,
+        title: "Components and surfaces",
+        docPath: "/ms-agent-python/generative-ui/components",
+        summary:
+          "standardUI on the provider: the runtime adds render_ui and its guide, and the agent answers with streamed A2UI 1.0 components.",
+        status: "partial",
+        statusNote:
+          "Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). The page's TanStack runtime is shown, not run; the provider config is verbatim. Not yet checked in a browser.",
+      },
+      {
+        path: "/generative-ui/components/surfaces",
+        hasDemo: true,
+        title: "Components · Surfaces",
+        docPath: "/ms-agent-python/generative-ui/components/surfaces",
+        summary:
+          "GenerativeUISurface page targets the chat can fill, limit, scroll to, and replace, with per-component error boundaries.",
+        status: "partial",
+        statusNote:
+          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). Product, ProductRow and the product list are repo scaffolding; ./catalog is taken to be the Catalogs page's shopUI; the page's undefined product is the first scaffolding product (no picker).",
+      },
+      {
+        path: "/generative-ui/components/catalogs",
+        hasDemo: true,
+        title: "Components · Catalogs",
+        docPath: "/ms-agent-python/generative-ui/components/catalogs",
+        summary:
+          "createGenerativeUI catalogs: typed components, zod and Valibot props, extends, parameterOrder and exportA2UICatalog.",
+        status: "partial",
+        statusNote:
+          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). Hero, Panel and cartUI are repo scaffolding. The catalog is used as published (no standardUI layout added). fs.writeFileSync is kept as a // doc: comment (Node-only).",
+      },
+      {
+        path: "/generative-ui/components/standard-catalog",
+        hasDemo: true,
+        title: "Components · Standard catalog",
+        docPath: "/ms-agent-python/generative-ui/components/standard-catalog",
+        summary:
+          "standardUI's 69 components as is, extended with a ProductCard, with Map/Video/HtmlView omitted, and with Card overridden.",
+        status: "partial",
+        statusNote:
+          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). ProductCard and productSchema are repo scaffolding.",
+      },
+      {
+        path: "/generative-ui/components/state-and-actions",
+        hasDemo: true,
+        title: "Components · State and actions",
+        docPath: "/ms-agent-python/generative-ui/components/state-and-actions",
+        summary:
+          "App state bound into props, functions run on click, events sent to the agent, and writable props that keep user input.",
+        status: "partial",
+        statusNote:
+          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). Cart, cart.addItem, the state-catalog ProductCard and the catalogs around the fragment snippets are repo scaffolding; the catalogs are used as published (no layout container), and there is no cart view, add-to-cart buttons or PlanCard. The \"Send a click\" events fragment names no component and is not exercised. Renderer functions cannot be called by the agent in this version, so allowedCallers is shown as exported only.",
+      },
+      {
+        path: "/generative-ui/components/theming",
+        hasDemo: true,
+        title: "Components · Theming",
+        docPath: "/ms-agent-python/generative-ui/components/theming",
+        summary:
+          "The theme option's CSS variables, a typed GenerativeUITheme file, dark-mode overrides, map styles, and .a2ui-surface CSS.",
+        status: "partial",
+        statusNote:
+          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). The dark-mode script renders in the demo body, not <head>; there is no manual dark toggle. The page's mapStyle URLs are placeholders, so the Map variant draws no basemap.",
+      },
+      {
+        path: "/generative-ui/components/transports",
+        hasDemo: true,
+        title: "Components · Transports",
+        docPath: "/ms-agent-python/generative-ui/components/transports",
+        summary:
+          "The render_ui tool transport vs the markdown transport, the runtime's generativeUI flag, and agentIds scoping.",
+        status: "partial",
+        statusNote:
+          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). The runtime sample's undefined agent is the Microsoft Agent Framework genui agent; no page builds the shop agent agentIds names, so none is registered.",
+      },
+      {
+        path: "/generative-ui/components/markdown-mode",
+        hasDemo: true,
+        title: "Components · Markdown mode",
+        docPath: "/ms-agent-python/generative-ui/components/markdown-mode",
+        summary:
+          "The agent writes A2UI operations in a2ui code blocks inside its reply; sendContext: false moves the catalog into forwardedProps.",
+        status: "partial",
+        statusNote:
+          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). The only backend shown for sendContext: false is a Python fragment reading forwarded_props.",
+      },
+      {
+        path: "/generative-ui/components/from-a2ui",
+        hasDemo: true,
+        title: "Components · Adopt from A2UI",
+        docPath: "/ms-agent-python/generative-ui/components/from-a2ui",
+        summary:
+          "The v0.9 a2ui renderer → A2UI 1.0 migration: the After catalog running on the new engine, with the Before code shown.",
+        status: "partial",
+        statusNote:
+          "Ported from aws-strands-py (itself from CPK-LangGraph-TS / aws-strands-ts); not yet type-checked or checked in a browser. Agent: Microsoft Agent Framework, not the doc's BuiltInAgent: the pages print only a TanStack BuiltInAgent factory, so a tool-free genui agent (ContextAwareAgent) with that factory's prompt takes its place (README §9). Airport and Arrow are repo scaffolding. The support matrix rules out @ag-ui/a2ui-toolkit 0.0.5 agent tools.",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",
