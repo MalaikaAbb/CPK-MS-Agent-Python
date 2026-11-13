@@ -449,7 +449,9 @@ export const NAV: NavGroup[] = [
         docPath: "/ms-agent-python/human-in-the-loop/tool-based",
         summary:
           "Gate an action behind a frontend tool with useHumanInTheLoop that renders UI and waits for the user.",
-        status: "working",
+        status: "partial",
+        statusNote:
+          "The page's useHumanInTheLoop tool, verbatim, on my_agent (the Quickstart agent: same prompt as the page's Python agent, plus Tool Rendering's get_weather). The page's Page returns nothing, kept with @ts-expect-error. Not yet browser-checked.",
       },
     ],
   },
