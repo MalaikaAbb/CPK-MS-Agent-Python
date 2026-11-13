@@ -1,157 +1,388 @@
 # Doc drift changelog
 
-What the CopilotKit docs changed under this repo, written by whichever sync
-ran — the `/doc-sync` page or `npm run drift:sync`. Only pages that actually
-moved are recorded — a sync that finds everything unchanged writes nothing
-here at all.
+What the CopilotKit docs changed under this repo, written by the `/doc-sync`
+page. Only pages that actually moved are recorded — a sync that finds
+everything unchanged writes nothing here at all.
 
 Holds the 3 most recent dated entries. When a change lands on a fourth
 date, the oldest entry is dropped. Entries are counted, not aged, so a gap of
 weeks between changes does not expire anything.
 
-## 2026-08-26
+## 2026-11-11
 
-### 10:41 UTC — 8 pages, highest severity high
+### 14:10 UTC — 36 pages, highest severity high
 
-**High — Quickstart**
-
-`/ms-agent-python/quickstart` · route `/quickstart` · under “Quickstart”
-
-15 code lines, 26 prose lines changed. The number of fenced code blocks changed.
-
-````diff
-- body="Add persistent threads and the inspector with the Enterprise Intelligence Platform."
-+ body="Add persistent threads and the inspector with CopilotKit Intelligence."
-- <SignupLink surface="docs_microsoft_agent_framework_quickstart_step1">Sign up for a free developer account</SignupLink> on our Enterprise Intelligence Platform to get a license key. You'll use it later to enable persistent threads and the inspector.
-+ <SignupLink surface="docs_microsoft_agent_framework_quickstart_step1">Sign up for a free developer account</SignupLink> for CopilotKit Intelligence to get a license key. You'll use it later to enable persistent threads and the inspector.
-- - **Enterprise Intelligence Platform** — persistent threads and the inspector. Choose **Yes** to scaffold a project pre-wired for the platform (the CLI walks you through sign-up, or you can [create an account](https://dashboard.operations.copilotkit.ai/?utm_source=docs&utm_medium=cta&utm_campaign=intelligence&utm_content=docs_cli_prompt) first), or **No** for a standard Microsoft Agent Framework setup.
-+ - **CopilotKit Intelligence** — persistent threads and the inspector. Choose **Yes** to scaffold a project pre-wired for the platform (the CLI walks you through sign-up, or you can [create an account](https://dashboard.operations.copilotkit.ai/?utm_source=docs&utm_medium=cta&utm_campaign=intelligence&utm_content=docs_cli_prompt) first), or **No** for a standard Microsoft Agent Framework setup.
-+ CopilotKitIntelligence,
-- InMemoryAgentRunner,
-````
-
-**High — Overview**
-
-`/ms-agent-python/threads` · route `/threads` · under “Get started”
-
-6 code lines, 2 headings, 24 prose lines changed.
-
-````diff
-- Create a new CopilotKit app connected to cloud-hosted Enterprise Intelligence. Your application and CopilotKit Runtime run locally while Enterprise Intelligence stores and synchronizes Rich Threads.
-+ Create a new CopilotKit app connected to cloud-hosted CopilotKit Intelligence. Your application and CopilotKit Runtime run locally while CopilotKit Intelligence stores and synchronizes Rich Threads.
-- Enterprise Intelligence.
-+ CopilotKit Intelligence.
-- sign-in and Enterprise Intelligence project selection when needed. Use the
-+ sign-in and CopilotKit Intelligence project selection when needed. Use the
-- manual Enterprise Intelligence environment configuration. Do not set up a local
-+ manual CopilotKit Intelligence environment configuration. Do not set up a local
-````
-
-**Medium — Copilot Runtime**
-
-`/ms-agent-python/copilot-runtime` · route `/copilot-runtime` · under “Enterprise Intelligence Platform”
-
-2 headings, 2 prose lines changed.
-
-````diff
-- ### Enterprise Intelligence Platform
-+ ### CopilotKit Intelligence
-- Features like [threads](/ms-agent-python/threads) and the [inspector](/ms-agent-python/inspector) are provided through the runtime and the Enterprise Intelligence Platform. These give you conversation persistence and debugging capabilities out of the box.
-+ Features like [threads](/ms-agent-python/threads) and the [inspector](/ms-agent-python/inspector) are provided through the runtime and CopilotKit Intelligence. These give you conversation persistence and debugging capabilities out of the box.
-````
-
-**Medium — Headless Threads**
-
-`/ms-agent-python/headless-threads` · route `/threads/headless` · under “What is this?”
-
-2 headings, 14 prose lines changed.
-
-````diff
-- CopilotKit Rich Threads enable persistent, resumable multi-turn conversations. The `useThreads` hook lists, creates, renames, archives, and deletes Enterprise Intelligence Platform threads with realtime synchronization via WebSocket. Threads work with any agent framework — the Enterprise Intelligence Platform stores conversation history server-side, so users can close their browser and pick up where they left off. It does not list or mutate native LangGraph, ADK, or other framework stores unless your backend explicitly bridges those systems. Thread metadata updates (renames, archives, new threads) appear on connected clients without polling.
-+ CopilotKit Rich Threads enable persistent, resumable multi-turn conversations. The `useThreads` hook lists, creates, renames, archives, and deletes CopilotKit Intelligence threads with realtime synchronization via WebSocket. Threads work with any agent framework — CopilotKit Intelligence stores conversation history server-side, so users can close their browser and pick up where they left off. It does not list or mutate native LangGraph, ADK, or other framework stores unless your backend explicitly bridges those systems. Thread metadata updates (renames, archives, new threads) appear on connected clients without polling.
-- title="Threads run on the Enterprise Intelligence Platform"
-+ title="Threads run in CopilotKit Intelligence"
-- - A CopilotKit application connected to Enterprise Intelligence
-+ - A CopilotKit application connected to CopilotKit Intelligence
-- Enterprise Intelligence. To move historical Google ADK or LangGraph
-+ CopilotKit Intelligence. To move historical Google ADK or LangGraph
-````
-
-**Low — Introduction**
+**High — Introduction** · _local snapshot edit, not an upstream change_
 
 `/ms-agent-python` · routes `/`, `/doc-sync` · under “Introduction”
 
-2 prose lines changed.
+17 code lines, 23 prose lines changed. The number of fenced code blocks changed.
 
 ````diff
-- body="Add persistent threads and the inspector with the Enterprise Intelligence Platform."
-+ body="Add persistent threads and the inspector with CopilotKit Intelligence."
+- ]}
+- afterFeatures={
+- <OpsPlatformCTA
+- variant="card"
+- title="Bring your Agent Framework agents to production"
+- body="Add persistent threads and the inspector with CopilotKit Intelligence."
+- ctaLabel="Create a free account"
+- surface="docs_microsoft_agent_framework_overview"
+````
+
+**High — Readables**
+
+`/ms-agent-python/agent-app-context` · route `/readables` · under “Consume the data in your AG-UI server” · in a `csharp` block
+
+7 code lines changed.
+
+````diff
++ #pragma warning disable OPENAI001
+- .GetChatClient("gpt-5.4-mini")
++ .GetChatClient("gpt-6-luna")
++ .AsIChatClient().AsBuilder()
++ .ConfigureOptions(options => options.RawRepresentationFactory = _ =>
++ new OpenAI.Chat.ChatCompletionOptions { ReasoningEffortLevel = new("none") })
++ .Build()
+````
+
+**High — Authentication**
+
+`/ms-agent-python/auth` · route `/auth` · under “Backend Setup” · in a `csharp` block
+
+12 code lines changed.
+
+````diff
++ #pragma warning disable OPENAI001
++ using Microsoft.Extensions.AI;
+- var agent = openAI.GetChatClient("gpt-5.4-mini")
++ var agent = openAI.GetChatClient("gpt-6-luna")
++ .AsIChatClient().AsBuilder()
++ .ConfigureOptions(options => options.RawRepresentationFactory = _ =>
++ new OpenAI.Chat.ChatCompletionOptions { ReasoningEffortLevel = new("none") })
++ .Build()
+````
+
+**High — Frontend Tools**
+
+`/ms-agent-python/frontend-tools` · route `/frontend-tools` · under “Create your AG-UI server” · in a `csharp` block
+
+12 code lines changed.
+
+````diff
++ #pragma warning disable OPENAI001
++ using Microsoft.Extensions.AI;
+- .GetChatClient("gpt-5.4-mini")
++ .GetChatClient("gpt-6-luna")
++ .AsIChatClient().AsBuilder()
++ .ConfigureOptions(options => options.RawRepresentationFactory = _ =>
++ new OpenAI.Chat.ChatCompletionOptions { ReasoningEffortLevel = new("none") })
++ .Build()
+````
+
+**High — State Rendering**
+
+`/ms-agent-python/generative-ui/state-rendering` · route `/generative-ui/state-rendering` · under “Stream state from your agent” · in a `csharp` block
+
+11 code lines changed.
+
+````diff
++ #pragma warning disable OPENAI001
+- .GetChatClient("gpt-5.4-mini")
++ .GetChatClient("gpt-6-luna")
++ .AsIChatClient().AsBuilder()
++ .ConfigureOptions(options => options.RawRepresentationFactory = _ =>
++ new OpenAI.Chat.ChatCompletionOptions { ReasoningEffortLevel = new("none") })
++ .Build()
+- model=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "gpt-4o-mini"),
+````
+
+**High — Tool Rendering**
+
+`/ms-agent-python/generative-ui/tool-rendering` · route `/generative-ui/tool-rendering` · under “Give your agent a tool to call” · in a `csharp` block
+
+11 code lines changed.
+
+````diff
++ #pragma warning disable OPENAI001
+- .GetChatClient("gpt-5.4-mini")
++ .GetChatClient("gpt-6-luna")
++ .AsIChatClient().AsBuilder()
++ .ConfigureOptions(options => options.RawRepresentationFactory = _ =>
++ new OpenAI.Chat.ChatCompletionOptions { ReasoningEffortLevel = new("none") })
++ .Build()
+- model=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "gpt-4o-mini"),
+````
+
+**High — Threads Drawer** · _local snapshot edit, not an upstream change_
+
+`/ms-agent-python/prebuilt-components/copilot-threads-drawer` · route `/threads/drawer` · under “When should I use this?”
+
+41 code lines, 1 heading, 25 prose lines changed. The number of fenced code blocks changed.
+
+````diff
+- server-side). <SignupLink surface="docs_drawer">Get a free developer account</SignupLink> to set that up.
++ server-side). <SignupLink surface="docs_drawer">Start cloud-hosted setup</SignupLink> to create or select a project.
+- [scope Rich Threads to the signed-in user](/ms-agent-python/threads-lifecycle#scope-rich-threads-to-the-signed-in-user).
++ [scope AG-UI Streams to the signed-in user](/ms-agent-python/threads-lifecycle#scope-rich-threads-to-the-signed-in-user).
+- body="Get persistent threads and realtime sync on the free Developer tier."
++ body="Connect a cloud-hosted project to get persistent threads and realtime sync."
++ ## Add your own "New conversation" button
++ 
+````
+
+**High — Quickstart** · _local snapshot edit, not an upstream change_
+
+`/ms-agent-python/quickstart` · route `/quickstart` · under “Configure your environment” · in a `bash` block
+
+20 code lines changed.
+
+````diff
+- OPENAI_CHAT_MODEL_ID=gpt-5.4-mini
++ OPENAI_CHAT_MODEL_ID=gpt-6-luna
+- AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=gpt-5.4-mini
++ AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=gpt-6-luna
++ #pragma warning disable OPENAI001
++ using Microsoft.Extensions.AI;
+- var agent = openAI.GetChatClient("gpt-5.4-mini").AsAIAgent(
++ var agent = openAI.GetChatClient("gpt-6-luna")
+````
+
+**High — Reading agent state**
+
+`/ms-agent-python/shared-state/in-app-agent-read` · route `/shared-state/in-app-agent-read` · under “Define the Agent State” · in a `python` block
+
+4 code lines changed.
+
+````diff
+- model=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "gpt-4o-mini"),
++ model=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "gpt-6-luna"),
+- model=os.getenv("OPENAI_CHAT_MODEL_ID", "gpt-4o-mini"),
++ model=os.getenv("OPENAI_CHAT_MODEL_ID", "gpt-6-luna"),
+````
+
+**High — Writing agent state**
+
+`/ms-agent-python/shared-state/in-app-agent-write` · route `/shared-state/in-app-agent-write` · under “Define the Agent State” · in a `python` block
+
+4 code lines changed.
+
+````diff
+- model=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "gpt-4o-mini"),
++ model=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "gpt-6-luna"),
+- model=os.getenv("OPENAI_CHAT_MODEL_ID", "gpt-4o-mini"),
++ model=os.getenv("OPENAI_CHAT_MODEL_ID", "gpt-6-luna"),
+````
+
+**High — Overview** · _local snapshot edit, not an upstream change_
+
+`/ms-agent-python/threads` · route `/threads` · under “Rich Threads”
+
+21 code lines, 10 headings, 86 prose lines changed.
+
+````diff
+- # Rich Threads
++ # AG-UI Streams
+- > Build rich, persistent agent conversations that restore messages, generative UI, multimodal inputs, and live runs across sessions and devices.
++ > Complement any existing thread system with AG-UI Streams. Add the full spectrum of generative UI, multimodal inputs and file uploads, plus reconnection and catch-up after network interruptions and across tabs and devices.
+- ## Overview
++ <span id="overview" />
+- Rich Threads are the persistence and conversation layer behind your agent's conversations. Users get rich history, continuity across devices, reconnection to active runs, and ready-made thread controls.
++ CopilotKit Intelligence’s AG-UI Streams complement your existing thread system, whether you use LangGraph, Google ADK, Mastra, or a custom backend. Your framework keeps managing the conversation and agent state while Intelligence records the interactions delivered through CopilotKit.
+````
+
+**Medium — Copilot Runtime** · _local snapshot edit, not an upstream change_
+
+`/ms-agent-python/copilot-runtime` · route `/copilot-runtime` · under “Runtime languages”
+
+1 heading, 28 prose lines changed.
+
+````diff
++ ## Runtime languages
++ 
++ **TypeScript is the default and most fully featured runtime. It is the only runtime that can run without CopilotKit Intelligence.** Use it for an open-source setup, or connect it to Intelligence when you need its services.
++ 
++ Python, Go, Ruby, and C#/.NET runtimes require an Intelligence project and server-side API key. They work with both [cloud-hosted](/ms-agent-python/intelligence/managed-intelligence-platform) and [self-hosted](/ms-agent-python/intelligence/self-hosting) Intelligence; they do not provide an in-memory or SQLite runner.
++ 
++ | Language | Host | Without Intelligence |
++ | --- | --- | --- |
+````
+
+**Medium — Slots** · _local snapshot edit, not an upstream change_
+
+`/ms-agent-python/custom-look-and-feel/slots` · route `/custom-look-and-feel/slots` · under “`messageView` sub-slots”
+
+1 heading, 10 prose lines changed.
+
+````diff
++ | `workSummary`      | The "Working… / Worked for 9s" line when `toolCallDisplay` is `"turn"`.     |
+- | `toolCallsView`    | Tool call visualization.           |
++ | `toolCallsView`    | Tool call visualization. Has its own sub-slot (see below). |
++ 
++ ### `toolCallsView` sub-slots
++ 
++ Available via `messageView={{ assistantMessage: { toolCallsView: { ... } } }}`:
++ 
 ````
 
 **Low — AG-UI**
 
-`/ms-agent-python/ag-ui` · route `/ag-ui` · under “The proxy pattern”
+`/ms-agent-python/ag-ui` · route `/ag-ui` · under “How agents slot into the runtime”
+
+3 prose lines changed.
+
+````diff
++ To write the custom implementation yourself, and keep its own fields through
++ the clone in step 2, see [Write your own AG-UI agent](/ms-agent-python/backend/custom-ag-ui-agent).
++ 
+````
+
+**Low — Headless Threads** · _local snapshot edit, not an upstream change_
+
+`/ms-agent-python/headless-threads` · route `/threads/headless` · under “Headless Threads”
+
+48 prose lines changed.
+
+````diff
++ Intelligence’s AG-UI streams power the history and delivery behind this custom UI. Use `useThreads` to list and manage conversations, and pass their `threadId` to your chat.
++ 
+- CopilotKit Rich Threads enable persistent, resumable multi-turn conversations. The `useThreads` hook lists, creates, renames, archives, and deletes CopilotKit Intelligence threads with realtime synchronization via WebSocket. Threads work with any agent framework — CopilotKit Intelligence stores conversation history server-side, so users can close their browser and pick up where they left off. It does not list or mutate native LangGraph, ADK, or other framework stores unless your backend explicitly bridges those systems. Thread metadata updates (renames, archives, new threads) appear on connected clients without polling.
++ The `useThreads` hook lists, creates, renames, archives, and deletes CopilotKit Intelligence threads with realtime synchronization via WebSocket. Threads work with any agent framework — CopilotKit Intelligence stores conversation history server-side, so users can close their browser and pick up where they left off. It does not list or mutate native LangGraph, ADK, or other framework stores unless your backend explicitly bridges those systems. Thread metadata updates (renames, archives, new threads) appear on connected clients without polling.
+- <OpsPlatformCTA
+- variant="inline"
+- title="Threads run in CopilotKit Intelligence"
+- body="Get persistent threads and realtime sync on the free Developer tier."
+````
+
+**Low — Inspector** · _local snapshot edit, not an upstream change_
+
+`/ms-agent-python/inspector` · route `/inspector` · under “Follow and reproduce a run”
 
 2 prose lines changed.
 
 ````diff
-- routing, and CopilotKit Enterprise Intelligence without changing how the
-+ routing, and CopilotKit Intelligence without changing how the
+- [Thread](/ms-agent-python/threads) and choose **Try from here**. Inspector copies its
++ [Thread](/ms-agent-python/AG-UI-Streams) and choose **Try from here**. Inspector copies its
 ````
 
-**Low — Threads Drawer**
+**Info — Message history**
 
-`/ms-agent-python/prebuilt-components/copilot-threads-drawer` · route `/threads/drawer` · under “When should I use this?”
+`/ms-agent-python/backend/message-history` · route `/backend/message-history`
 
-4 prose lines changed.
+Now tracked for the first time.
 
-````diff
-- It requires the Enterprise Intelligence Platform (threads are stored and synced
-+ It requires CopilotKit Intelligence (threads are stored and synced
-- title="Threads run on the Enterprise Intelligence Platform"
-+ title="Threads run in CopilotKit Intelligence"
-````
+**Info — Jev: fast generative UI**
 
-**Low — Thread & History Lifecycle**
+`/ms-agent-python/cookbook/jev-generative-ui` · route `/cookbook/jev-generative-ui`
 
-`/ms-agent-python/threads-lifecycle` · route `/threads/lifecycle` · under “The lifecycle at a glance”
+Now tracked for the first time.
 
-12 prose lines changed.
+**Info — Markdown Rendering**
 
-````diff
-- 2. **Run.** Messages and tool calls stream under that `threadId`. If a server-side store is configured (the Enterprise Intelligence Platform, or a persisting `AgentRunner`), they are persisted as they happen so the thread can be replayed later. A runtime with no persistence layer keeps nothing server-side. See [Threads & Persistence Architecture](/ms-agent-python/premium/threads-explained) for the full server-side model.
-+ 2. **Run.** Messages and tool calls stream under that `threadId`. If a server-side store is configured (CopilotKit Intelligence, or a persisting `AgentRunner`), they are persisted as they happen so the thread can be replayed later. A runtime with no persistence layer keeps nothing server-side. See [Threads & Persistence Architecture](/ms-agent-python/premium/threads-explained) for the full server-side model.
-- Replay requires a **server-side store to replay from**: the Enterprise Intelligence Platform, or a persisting `AgentRunner` (e.g. the SQLite runner). A self-hosted runtime with no persistence layer has nothing to replay, so `connectAgent()` returns an empty stream and the conversation starts blank. If history isn't restoring, check that a store is configured, not the client code. The [Persistence Architecture](/ms-agent-python/premium/threads-explained) page covers how replay works server-side.
-+ Replay requires a **server-side store to replay from**: CopilotKit Intelligence, or a persisting `AgentRunner` (e.g. the SQLite runner). A self-hosted runtime with no persistence layer has nothing to replay, so `connectAgent()` returns an empty stream and the conversation starts blank. If history isn't restoring, check that a store is configured, not the client code. The [Persistence Architecture](/ms-agent-python/premium/threads-explained) page covers how replay works server-side.
-- Enterprise Intelligence combines that application user identity with the
-+ CopilotKit Intelligence combines that application user identity with the
-- | **CopilotKit threads** | Conversation list + full AG-UI event history (messages, tool calls, state), with realtime sync | The Enterprise Intelligence Platform, via `useThreads` |
-+ | **CopilotKit threads** | Conversation list + full AG-UI event history (messages, tool calls, state), with realtime sync | CopilotKit Intelligence, via `useThreads` |
-````
+`/ms-agent-python/custom-look-and-feel/markdown` · route `/custom-look-and-feel/markdown`
 
----
+Now tracked for the first time.
 
-## 2026-08-24
+**Info — A2UI · Advanced**
 
-### 07:49 UTC — 1 page, highest severity high · _npm run drift:sync_
+`/ms-agent-python/generative-ui/a2ui/advanced` · route `/generative-ui/a2ui/advanced`
 
-**High — /ms-agent-python/intelligence/learned-skills**
+Now tracked for the first time.
 
-`/ms-agent-python/intelligence/learned-skills` · route `/intelligence/learned-skills` · `ms-agent-python__intelligence__learned-skills.md`
+**Info — A2UI - Dynamic Schema**
 
-Code fence count changed. Hash ca354076 ➔ 048169d9.
+`/ms-agent-python/generative-ui/a2ui/dynamic-schema` · route `/generative-ui/a2ui/dynamic-schema`
 
-````diff
-- Skill delivery makes one Learning container's published skills available to an agent without another CLI download or process restart. A framework adapter adds an alphabetical catalog and two tools.
-- <Image
-- src="/images/cloud-hosted/cloud-hosted-skill-delivery.png"
-- alt="The Skills tab of a Learning container in cloud-hosted Intelligence. The Skill delivery toggle is on, and skill candidates wait for review."
-+ Skill delivery makes published skills from one or more Learning containers available to an agent without another CLI download or process restart. A framework adapter adds an alphabetical catalog and two tools.
-+ <Image
-+ src="/images/cloud-hosted/cloud-hosted-skill-delivery.png"
-+ alt="The Skills tab of a Learning container in cloud-hosted Intelligence. The Skill delivery toggle is on, and skill candidates wait for review."
-  … region truncated
-````
+Now tracked for the first time.
+
+**Info — A2UI · Fixed Schema**
+
+`/ms-agent-python/generative-ui/a2ui/fixed-schema` · route `/generative-ui/a2ui/fixed-schema`
+
+Now tracked for the first time.
+
+**Info — A2UI · Styling**
+
+`/ms-agent-python/generative-ui/a2ui/styling` · route `/generative-ui/a2ui/styling`
+
+Now tracked for the first time.
+
+**Info — Frontend Cards**
+
+`/ms-agent-python/generative-ui/frontend-cards` · route `/generative-ui/frontend-cards`
+
+Now tracked for the first time.
+
+**Info — Hashbrown**
+
+`/ms-agent-python/generative-ui/hashbrown` · route `/generative-ui/hashbrown`
+
+Now tracked for the first time.
+
+**Info — JSON Render**
+
+`/ms-agent-python/generative-ui/json-render` · route `/generative-ui/json-render`
+
+Now tracked for the first time.
+
+**Info — Open Generative UI**
+
+`/ms-agent-python/generative-ui/open-generative-ui` · route `/generative-ui/open-generative-ui`
+
+Now tracked for the first time.
+
+**Info — Components as Tools**
+
+`/ms-agent-python/generative-ui/tool-based` · route `/generative-ui/tool-based`
+
+Now tracked for the first time.
+
+**Info — HITL Overview**
+
+`/ms-agent-python/human-in-the-loop` · route `/human-in-the-loop`
+
+Now tracked for the first time.
+
+**Info — Governed Actions**
+
+`/ms-agent-python/human-in-the-loop/governed-actions` · route `/human-in-the-loop/governed-actions`
+
+Now tracked for the first time.
+
+**Info — Interrupt-based**
+
+`/ms-agent-python/human-in-the-loop/interrupt-flow` · route `/human-in-the-loop/interrupt-flow`
+
+Now tracked for the first time.
+
+**Info — Tool-based**
+
+`/ms-agent-python/human-in-the-loop/tool-based` · route `/human-in-the-loop/tool-based`
+
+Now tracked for the first time.
+
+**Info — Skill delivery**
+
+`/ms-agent-python/intelligence/learned-skills` · route `/intelligence/learned-skills`
+
+Now tracked for the first time.
+
+**Info — User Memories**
+
+`/ms-agent-python/intelligence/memories` · route `/intelligence/memories`
+
+Now tracked for the first time.
+
+**Info — Automatic Learning**
+
+`/ms-agent-python/learning` · route `/learning`
+
+Now tracked for the first time.
+
+**Info — WebMCP**
+
+`/ms-agent-python/webmcp` · route `/webmcp`
+
+Now tracked for the first time.
 
 ---
 
@@ -194,6 +425,8 @@ Headings / Structure changed. Hash a78b7305 ➔ 60db9be2.
 + ```text
   … region truncated
 ````
+
+---
 
 ---
 
@@ -309,22 +542,5 @@ Code block content changed. Hash fc5bb80b ➔ dab426d9.
 ````
 
 **High — /ms-agent-python/threads-lifecycle**
-
----
-
-## 2026-08-20
-
-Code block content changed. Hash e5a59613 ➔ 7bb48f64.
-
-````diff
-- [Connect your runtime to Intelligence](/ms-agent-python/intelligence/connect-your-runtime) covers the
-+ [Connect your runtime to Intelligence](/ms-agent-python/intelligence/quickstart) covers the
-````
-
-**High — /ms-agent-python/quickstart**
-
-`/ms-agent-python/quickstart` · route `/quickstart` · `ms-agent-python__quickstart.md`
-
-Code block content changed. Hash 48619c1e ➔ 301ed030.
 
 ---

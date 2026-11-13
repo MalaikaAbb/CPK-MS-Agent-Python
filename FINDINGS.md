@@ -26,7 +26,6 @@ Stack: `@copilotkit/react-core`/`runtime` 1.73.3, `@ag-ui/client` 0.0.59, `next`
 - #19/#27 Learning/Skill delivery: leaving out `learnedSkills` silently turns skills off. Now documented at learned-skills:132.
 - #28 Skill delivery: `apiUrl` without `wsUrl` sends realtime traffic to the cloud.
 - #31 `/intelligence/connect-your-runtime` returns 404 with no redirect.
-- #7 Quickstart: the env uses `gpt-5.4-mini`, but the code default is `gpt-4o-mini`.
 - #8 Quickstart installs the unused `@copilotkit/react-ui`.
 - #20 Markdown: `my-link`/`my-heading` classes are undefined, and `node` is unused.
 - #26 Skill delivery: every example has `revision: "exact-revision-id"`.

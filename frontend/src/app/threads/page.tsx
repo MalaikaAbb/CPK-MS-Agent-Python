@@ -187,10 +187,11 @@ export default function Page() {
           rel="noreferrer"
           className="text-[var(--accent)] underline underline-offset-4"
         >
-          Import &amp; Synchronize Thread History
-        </a>
-        , is about migrating existing LangGraph or ADK conversations into the
-        platform store. There is nothing to migrate from here, so it is left
+          Add AG-UI Streams to Existing Threads
+        </a>{" "}
+        (formerly Import &amp; Synchronize Thread History), is about importing
+        existing ADK, LangGraph or Mastra conversations into the platform
+        store. There is nothing to migrate from here, so it is left
         out rather than mocked.
       </Callout>
 

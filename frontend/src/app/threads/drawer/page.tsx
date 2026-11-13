@@ -28,6 +28,22 @@ export default function Page() {
           without defining it; the demo supplies a placeholder.
         </p>
         <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+          Two more tabs came with the 2026-11 sync. <strong>Own button</strong>{" "}
+          is the &ldquo;New conversation&rdquo; button sample: an app button
+          that calls <code>startNewThread()</code> from{" "}
+          <code>useCopilotChatConfiguration()</code>, the same call the
+          drawer&apos;s own row makes. Its checkbox (harness glue, not from the
+          page) mounts the page&apos;s CSS-parts snippet, which hides the
+          drawer&apos;s built-in new-conversation row and launcher button.{" "}
+          <strong>Controlled thread</strong> is the page&apos;s{" "}
+          <code>ControlledChat</code>: the app owns <code>threadId</code>, so
+          the drawer gets <code>onThreadSelect</code> and{" "}
+          <code>onNewThread</code>, and the app&apos;s button runs the same
+          code. Both are rendered as published; the first one&apos;s outer
+          provider is the app&apos;s and its <code>100dvh</code> is{" "}
+          <code>100%</code> here, as on the sidebar tab.
+        </p>
+        <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
           The same sync added two callouts. The drawer ships only in{" "}
           <code>@copilotkit/react-core/v2</code>. And its chat-header launcher
           appears on mobile viewports only; on desktop the drawer is always
@@ -36,7 +52,7 @@ export default function Page() {
         <div className="mt-4">
           <TryIt
             prompts={["Can you tell me a joke?"]}
-            expect="A row appears in the drawer, auto-named after the first exchange. Start a second conversation, then click back to the first — its transcript replays."
+            expect="A row appears in the drawer, auto-named after the first exchange. Start a second conversation, then click back to the first — its transcript replays. On Own button / Controlled thread, the app's own New conversation button brings back the welcome screen with no row selected."
             fail="The drawer shows a locked panel instead of a list, which means the runtime is not reporting a valid license — see /threads."
           />
         </div>
