@@ -198,6 +198,16 @@ export const NAV: NavGroup[] = [
         status: "working",
       },
       {
+        path: "/generative-ui/a2ui",
+        title: "A2UI",
+        docPath: "/ms-agent-python/generative-ui/a2ui",
+        summary:
+          "Landing page for A2UI: the runtime's a2ui switch, the three-operation surface shape, and the fixed vs dynamic approaches.",
+        status: "reference",
+        statusNote:
+          "Overview page with no demo of its own. Its setup snippet can't compile as one file (two `const runtime`, undefined `myAgent`), so it's shown, not mounted. The live surfaces are on the Fixed and Dynamic Schema routes.",
+      },
+      {
         path: "/generative-ui/a2ui/fixed-schema",
         hasDemo: true,
         title: "A2UI · Fixed Schema",
@@ -388,6 +398,17 @@ export const NAV: NavGroup[] = [
         summary:
           "Forwarding a bearer token from the provider to the AG-UI server, and validating it there.",
         status: "working",
+      },
+      {
+        path: "/multi-agent/subagents",
+        hasDemo: true,
+        title: "Sub-agents",
+        docPath: "/ms-agent-python/multi-agent/subagents",
+        summary:
+          "A supervisor agent that delegates to research, writing and critique agents exposed as tools, with a live delegation log in shared state.",
+        status: "broken",
+        statusNote:
+          "Demo Code tab imports two unpublished modules (inferActiveSubAgent, suggestions), which are commented out, and two unpublished components, added minimally. Not yet checked in a browser.",
       },
     ],
   },

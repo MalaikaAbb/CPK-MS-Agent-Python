@@ -35,6 +35,9 @@ const runtime = new CopilotRuntime({
     byoc_json_render: new HttpAgent({ url: `${AGENT_URL}/byoc-json-render` }),
     byoc_hashbrown: new HttpAgent({ url: `${AGENT_URL}/byoc-hashbrown` }),
     open_gen_ui: new HttpAgent({ url: `${AGENT_URL}/open-gen-ui` }),
+    // Sub-agents page: the demo Code tab's route.ts registers
+    // `agents["subagents"] = createAgent("/subagents")`.
+    subagents: new HttpAgent({ url: `${AGENT_URL}/subagents` }),
   },
   runner: new InMemoryAgentRunner(),
 
