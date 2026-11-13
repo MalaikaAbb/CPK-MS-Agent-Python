@@ -433,7 +433,7 @@ export const NAV: NavGroup[] = [
         summary:
           "The drop-in conversation sidebar, in both its zero-prop form and with all three documented escape hatches.",
         status: "partial",
-        statusNote: "Requires the license above. Rename is absent by design.",
+        statusNote: "Requires the license above. Rename is absent by design. Own-button and controlled-thread tabs (2026-11 sync) not yet checked in a browser.",
       },
       {
         path: "/threads/headless",

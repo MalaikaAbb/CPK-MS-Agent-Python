@@ -5,6 +5,7 @@ import {
   CopilotChatConfigurationProvider,
   CopilotSidebar,
   CopilotThreadsDrawer,
+  useCopilotChatConfiguration,
   type Thread,
 } from "@copilotkit/react-core/v2";
 import { useState } from "react";
@@ -25,7 +26,7 @@ import { ThreadsProvider } from "@/components/threads-provider";
 
 const AGENT_ID = "default";
 
-type Variant = "default" | "customized" | "sidebar";
+type Variant = "default" | "customized" | "sidebar" | "own-button" | "controlled";
 
 const TABS: { id: Variant; label: string; blurb: string }[] = [
   {
@@ -42,6 +43,16 @@ const TABS: { id: Variant; label: string; blurb: string }[] = [
     id: "sidebar",
     label: "Sidebar host",
     blurb: "Use the Drawer with a sidebar chat.",
+  },
+  {
+    id: "own-button",
+    label: "Own button",
+    blurb: "Add your own \"New conversation\" button — startNewThread().",
+  },
+  {
+    id: "controlled",
+    label: "Controlled thread",
+    blurb: "threadId prop + onThreadSelect / onNewThread, your button runs the same code.",
   },
 ];
 
@@ -86,7 +97,9 @@ export default function Page() {
           {/* Remounted per variant so the drawer re-registers with a fresh
               configuration instead of inheriting the previous one's state. */}
           <div className="min-h-0 flex-1" key={variant}>
-            {variant === "sidebar" ? <SidebarHost /> : (
+            {variant === "own-button" ? <OwnButtonHost /> :
+             variant === "controlled" ? <ControlledChat /> :
+             variant === "sidebar" ? <SidebarHost /> : (
             <>
             {/* [1] threads-drawer: shared chat configuration */}
             {/* [!code highlight] */}
@@ -164,5 +177,88 @@ function YourMainContent() {
       Main content. The sidebar chat on the right shares the drawer&apos;s chat
       configuration.
     </div>
+  );
+}
+
+// [6] threads-drawer: your own "New conversation" button
+// [!code highlight]
+function NewConversationButton() {
+  const configuration = useCopilotChatConfiguration(); // [!code highlight]
+
+  return (
+    <button
+      type="button"
+      onClick={() => configuration?.startNewThread()} // [!code highlight]
+    >
+      New conversation
+    </button>
+  );
+}
+
+/**
+ * "Add your own New conversation button", as published, one level in: the
+ * snippet's outer `<CopilotKitProvider runtimeUrl="/api/copilotkit">` is the
+ * app root's provider (plus this route's `ThreadsProvider`), and its
+ * `height: "100dvh"` is `100%` because the demo sits under the demo bar —
+ * the same two adjustments as the sidebar host above.
+ *
+ * The checkbox is harness glue (not from the page): it mounts the page's CSS
+ * snippet, verbatim, so you can compare with and without the drawer's own
+ * new-conversation controls.
+ */
+function OwnButtonHost() {
+  const [hideBuiltIn, setHideBuiltIn] = useState(false);
+
+  return (
+    <>
+      {hideBuiltIn && (
+        <style>{`
+copilotkit-threads-drawer::part(new-thread-button),
+copilotkit-threads-drawer::part(launcher-new-thread) {
+  display: none;
+}
+`}</style>
+      )}
+      <CopilotChatConfigurationProvider>
+        <div style={{ display: "flex", height: "100%" }}>
+          <CopilotThreadsDrawer />
+          <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            <header>
+              <NewConversationButton />
+              {/* NOT FROM THE PAGE: toggles the page's CSS-parts snippet. */}
+              <label className="ml-4 text-xs text-slate-500">
+                <input
+                  type="checkbox"
+                  checked={hideBuiltIn}
+                  onChange={(e) => setHideBuiltIn(e.target.checked)}
+                />{" "}
+                hide the drawer&apos;s own new-conversation controls (CSS parts)
+              </label>
+            </header>
+            <CopilotChat />
+          </main>
+        </div>
+      </CopilotChatConfigurationProvider>
+    </>
+  );
+}
+
+// [7] threads-drawer: app-controlled thread id
+// [!code highlight]
+function ControlledChat() {
+  const [threadId, setThreadId] = useState(() => crypto.randomUUID());
+  const startNew = () => setThreadId(crypto.randomUUID());
+
+  return (
+    <CopilotChatConfigurationProvider threadId={threadId}>
+      <CopilotThreadsDrawer
+        onThreadSelect={(id) => setThreadId(id)}
+        onNewThread={startNew}
+      />
+      <button type="button" onClick={startNew}>
+        New conversation
+      </button>
+      <CopilotChat />
+    </CopilotChatConfigurationProvider>
   );
 }
