@@ -39,6 +39,7 @@ load_dotenv(_ROOT_ENV, override=False)
 from agents import (  # noqa: E402 - must follow load_dotenv
     create_a2ui_agent,
     create_context_agent,
+    create_components_agent,
     create_main_agent,
     create_sample_agent,
     create_search_agent,
@@ -127,6 +128,11 @@ chat_client = build_chat_client()
 # [!code highlight]
 # Quickstart / Tool Rendering / everything with no state schema.
 add_agent_framework_fastapi_endpoint(app=app, agent=create_main_agent(chat_client), path="/")
+# Components and surfaces (all nine pages share it): the section's BuiltInAgent
+# as a MAF Agent, see agents.create_components_agent.
+add_agent_framework_fastapi_endpoint(
+    app=app, agent=create_components_agent(chat_client), path="/components"
+)
 
 # Shared State read + write.
 #

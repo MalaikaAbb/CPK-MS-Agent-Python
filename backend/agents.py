@@ -71,6 +71,35 @@ def create_main_agent(chat_client: SupportsChatGetResponse) -> Agent:
 
 
 # --------------------------------------------------------------------------
+# Components and surfaces — .../generative-ui/components ("Add the runtime and
+# an agent")
+# --------------------------------------------------------------------------
+
+
+def create_components_agent(chat_client: SupportsChatGetResponse) -> Agent:
+    """The section's agent, as a MAF `Agent` (framework-own-agents swap).
+
+    The page prints a TanStack `BuiltInAgent` on `openaiText("gpt-6-luna")`.
+    This harness runs Microsoft Agent Framework agents only, so it is a plain
+    `Agent` like the Quickstart's, with the snippet's system prompt verbatim and
+    no tools (the snippet defines none).
+
+    `render_ui` arrives per run as a client tool with its full JSON schema
+    (`agent_framework_ag_ui` declares it with `input_model=parameters`). The
+    run's context entries — the `render_ui` guide, and markdown mode's schema and
+    fence guide — are only read on the A2UI v0.9 path (`a2ui_context`), never put
+    in the prompt. The page shows no MAF code for that, so nothing is added; the
+    Agent App Context page's `ContextAwareAgent` is not reused (README §9).
+    """
+    return Agent(
+        name="ComponentsAgent",
+        # The page's prompt, verbatim.
+        instructions="You are a helpful assistant. When a visual answer helps, render it with generative UI.",
+        client=chat_client,
+    )
+
+
+# --------------------------------------------------------------------------
 # Agent App Context — .../agent-app-context
 # --------------------------------------------------------------------------
 #

@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@ag-ui/client": "1.0.2",
-    "@copilotkit/a2ui-renderer": "^1.84.1",
-    "@copilotkit/react-core": "^1.84.1",
-    "@copilotkit/runtime": "^1.84.1",
+    "@copilotkit/a2ui-renderer": "^1.87.0",
+    "@copilotkit/react-core": "^1.87.0",
+    "@copilotkit/runtime": "^1.87.0",
     "@hashbrownai/core": "^0.8.3",
     "@hashbrownai/react": "^0.8.3",
     "@json-render/core": "^0.21.4",
