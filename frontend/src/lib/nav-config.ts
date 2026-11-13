@@ -273,6 +273,17 @@ export const NAV: NavGroup[] = [
         status: "working",
       },
       {
+        path: "/generative-ui/mcp-apps",
+        hasDemo: true,
+        title: "MCP Apps",
+        docPath: "/ms-agent-python/generative-ui/mcp-apps",
+        summary:
+          "An MCP server supplies a tool and its UI; the runtime's mcpApps option renders it inline in a plain CopilotSidebar.",
+        status: "partial",
+        statusNote:
+          "Agent: Microsoft Agent Framework, not the doc's BuiltInAgent (same prompt, no tools). The mcpApps config is verbatim and targets http://localhost:3108/mcp, which the harness doesn't run; start an ext-apps example server there. Runtime at /api/copilotkit-mcp-apps, not /api/copilotkit. Not yet checked in a browser.",
+      },
+      {
         path: "/generative-ui/frontend-cards",
         title: "Frontend Cards",
         docPath: "/ms-agent-python/generative-ui/frontend-cards",

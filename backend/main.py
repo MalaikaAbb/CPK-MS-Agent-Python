@@ -93,6 +93,7 @@ AGENT_PATHS = {
     "/open-gen-ui-advanced",
     "/interrupt_flow",
     "/subagents",
+    "/mcp-apps",
 }
 
 
@@ -212,6 +213,16 @@ add_agent_framework_fastapi_endpoint(
 
 # region hitl-mounts
 add_agent_framework_fastapi_endpoint(app=app, agent=interrupt_flow.agent, path="/interrupt_flow")
+# endregion
+
+# MCP Apps page (BuiltInAgent in the docs; this repo's own agent instead, see
+# doc_agents/mcp_apps_agent.py).
+from doc_agents.mcp_apps_agent import create_mcp_apps_agent  # noqa: E402
+
+# region mcp-apps-mount
+add_agent_framework_fastapi_endpoint(
+    app=app, agent=create_mcp_apps_agent(chat_client), path="/mcp-apps"
+)
 # endregion
 
 # region multi-agent-mounts
