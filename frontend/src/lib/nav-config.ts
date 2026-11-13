@@ -237,43 +237,47 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components",
+        hasDemo: true,
         title: "Components and surfaces",
         docPath: "/ms-agent-python/generative-ui/components",
         summary:
           "standardUI on the provider: the runtime adds render_ui and its guide, and the agent answers with streamed A2UI 1.0 components.",
-        status: "reference",
+        status: "partial",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9). The page's provider and TanStack runtime are shown as text.",
+          "Wired to the /components MAF agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87 and agent-framework-ag-ui 1.8.1. render_ui reaches the model with its full schema, but not its guide: the MAF AG-UI adapter reads the run's context only on its A2UI v0.9 path. Not browser-checked. Mounted: the page's standardUI provider.",
       },
       {
         path: "/generative-ui/components/surfaces",
+        hasDemo: true,
         title: "Components · Surfaces",
         docPath: "/ms-agent-python/generative-ui/components/surfaces",
         summary:
           "GenerativeUISurface page targets the chat can fill, limit, scroll to, and replace, with per-component error boundaries.",
-        status: "reference",
+        status: "partial",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
+          "Wired to the /components MAF agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87 and agent-framework-ag-ui 1.8.1. render_ui reaches the model with its full schema, but not its guide: the MAF AG-UI adapter reads the run's context only on its A2UI v0.9 path. Not browser-checked. Mounted: error-boundary provider, 'featured' (limited) and 'sidebar-notes' targets. Not mounted: FeaturedProducts and the per-item target (undefined products/Product/product).",
       },
       {
         path: "/generative-ui/components/catalogs",
+        hasDemo: true,
         title: "Components · Catalogs",
         docPath: "/ms-agent-python/generative-ui/components/catalogs",
         summary:
           "createGenerativeUI catalogs: typed components, zod and Valibot props, extends, parameterOrder and exportA2UICatalog.",
-        status: "reference",
+        status: "partial",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
+          "Wired to the /components MAF agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87 and agent-framework-ag-ui 1.8.1. render_ui reaches the model with its full schema, but not its guide: the MAF AG-UI adapter reads the run's context only on its A2UI v0.9 path. Not browser-checked. Mounted: shopUI. Not mounted: Combine/export (undefined cartUI); schema-library and positional-order fragments.",
       },
       {
         path: "/generative-ui/components/standard-catalog",
+        hasDemo: true,
         title: "Components · Standard catalog",
         docPath: "/ms-agent-python/generative-ui/components/standard-catalog",
         summary:
           "standardUI's 69 components as is, extended with a ProductCard, with Map/Video/HtmlView omitted, and with Card overridden.",
-        status: "reference",
+        status: "partial",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
+          "Wired to the /components MAF agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87 and agent-framework-ag-ui 1.8.1. render_ui reaches the model with its full schema, but not its guide: the MAF AG-UI adapter reads the run's context only on its A2UI v0.9 path. Not browser-checked. Mounted: as is, omit, overrides. Not mounted: extend (undefined ProductCard, productSchema).",
       },
       {
         path: "/generative-ui/components/state-and-actions",
@@ -281,49 +285,53 @@ export const NAV: NavGroup[] = [
         docPath: "/ms-agent-python/generative-ui/components/state-and-actions",
         summary:
           "App state bound into props, functions run on click, events sent to the agent, and writable props that keep user input.",
-        status: "reference",
+        status: "broken",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
+          "Reference only, no backend. Every sample needs pieces the page never defines (Cart type and cart instance, ProductCard) or is a fragment (events, writable, function declarations), so nothing is mounted.",
       },
       {
         path: "/generative-ui/components/theming",
+        hasDemo: true,
         title: "Components · Theming",
         docPath: "/ms-agent-python/generative-ui/components/theming",
         summary:
           "The theme option's CSS variables, a typed GenerativeUITheme file, dark-mode overrides, map styles, and .a2ui-surface CSS.",
-        status: "reference",
+        status: "partial",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
+          "Wired to the /components MAF agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87 and agent-framework-ag-ui 1.8.1. render_ui reaches the model with its full schema, but not its guide: the MAF AG-UI adapter reads the run's context only on its A2UI v0.9 path. Not browser-checked. Mounted: provider theme, CSS variables, dark-mode script. Shown only: per-mode/map fragments, theme file.",
       },
       {
         path: "/generative-ui/components/transports",
+        hasDemo: true,
         title: "Components · Transports",
         docPath: "/ms-agent-python/generative-ui/components/transports",
         summary:
           "The render_ui tool transport vs the markdown transport, the runtime's generativeUI flag, and agentIds scoping.",
-        status: "reference",
+        status: "partial",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
+          "Wired to the /components MAF agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87 and agent-framework-ag-ui 1.8.1. render_ui reaches the model with its full schema, but not its guide: the MAF AG-UI adapter reads the run's context only on its A2UI v0.9 path. Not browser-checked. Mounted on a generativeUI: true runtime: tool, markdown, agentIds as default. The markdown variant cannot work (it depends on context only). No shop agent is published.",
       },
       {
         path: "/generative-ui/components/markdown-mode",
+        hasDemo: true,
         title: "Components · Markdown mode",
         docPath: "/ms-agent-python/generative-ui/components/markdown-mode",
         summary:
           "The agent writes A2UI operations in a2ui code blocks inside its reply; sendContext: false moves the catalog into forwardedProps.",
-        status: "reference",
+        status: "broken",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
+          "Wired to the /components MAF agent on CopilotKit 1.87, but expected to show no UI: markdown mode sends the schema and fence guide only as context, which the MAF AG-UI adapter never puts in the prompt. Not browser-checked.",
       },
       {
         path: "/generative-ui/components/from-a2ui",
+        hasDemo: true,
         title: "Components · Adopt from A2UI",
         docPath: "/ms-agent-python/generative-ui/components/from-a2ui",
         summary:
           "The v0.9 a2ui renderer → A2UI 1.0 migration: the After catalog running on the new engine, with the Before code shown.",
-        status: "reference",
+        status: "partial",
         statusNote:
-          "Reference only: needs @copilotkit/react-core/v2/generative-ui, which the installed CopilotKit (1.73.3 per the lockfile; first in 1.84) doesn't ship. Doc-sync doesn't bump dependencies (README §9).",
+          "Wired to the /components MAF agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87 and agent-framework-ag-ui 1.8.1. render_ui reaches the model with its full schema, but not its guide: the MAF AG-UI adapter reads the run's context only on its A2UI v0.9 path. Not browser-checked. Mounted: the After catalog; Airport/Arrow borrowed from aws-strands-ts.",
       },
       {
         path: "/generative-ui/json-render",

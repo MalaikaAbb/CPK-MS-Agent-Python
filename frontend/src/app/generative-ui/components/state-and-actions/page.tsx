@@ -2,29 +2,23 @@ import { RouteHeader } from "@/components/route-header";
 import { Callout, Panel } from "@/components/ui";
 
 /**
- * Reference-only: State and actions
+ * State and actions: reference only (see the callout).
  * https://docs.copilotkit.ai/ms-agent-python/generative-ui/components/state-and-actions
- *
- * Not implemented. The page's code needs @copilotkit/react-core/v2/generative-ui,
- * which the installed CopilotKit (1.73.3 per the lockfile) does not ship. See
- * README §9 (Pending review).
  */
 export default function Page() {
   return (
     <>
       <RouteHeader path="/generative-ui/components/state-and-actions" />
 
-      <Callout tone="warn" title="Reference only: needs a newer CopilotKit than this repo installs">
+      <Callout tone="warn" title="Broken: reference only">
         <p>
-          This repo's lockfile installs <code>@copilotkit/react-core</code>{" "}
-          <strong>1.73.3</strong>, which has no{" "}
-          <code>@copilotkit/react-core/v2/generative-ui</code> entry point. That
-          entry point (<code>standardUI</code>, <code>createGenerativeUI</code>,{" "}
-          <code>GenerativeUISurface</code>, &hellip;) first ships in 1.84. Every
-          snippet on this page needs it, so none of it can compile or run here.
-          Doc-sync does not bump dependencies, so the route is reference-only
-          until the repo is upgraded. The docs don&apos;t state a minimum
-          version.
+          Nothing on this page is mounted. Its samples need a <code>Cart</code>{" "}
+          type and a <code>cart</code> instance, and a <code>ProductCard</code>,
+          that the page never defines, or are fragments (<code>events</code>,{" "}
+          <code>writable</code>, function declarations) with no catalog around
+          them. Nothing is written in their place, so it has no demo and no
+          backend of its own. CopilotKit is now 1.87, so the version is no longer
+          the blocker.
         </p>
       </Callout>
 
