@@ -80,6 +80,7 @@ as this guide uses it as a starting point.
         <Tabs groupId="language_microsoft-agent-framework_agent" items={['.NET', 'Python']} persist>
           <Tab value=".NET">
             ```csharp title="Program.cs"
+#pragma warning disable OPENAI001
             using System.Runtime.CompilerServices;
             using System.Text;
             using AGUI.Abstractions;
@@ -101,7 +102,11 @@ as this guide uses it as a starting point.
 
             // Create the base agent
             AIAgent baseAgent = new OpenAIClient(openAiApiKey)
-                .GetChatClient("gpt-5.4-mini")
+                .GetChatClient("gpt-6-luna")
+    .AsIChatClient().AsBuilder()
+    .ConfigureOptions(options => options.RawRepresentationFactory = _ =>
+        new OpenAI.Chat.ChatCompletionOptions { ReasoningEffortLevel = new("none") })
+    .Build()
                 .AsAIAgent(
                     name: "AGUIAssistant",
                     instructions: "You are a helpful assistant. Use the provided context about colleagues to answer questions.");

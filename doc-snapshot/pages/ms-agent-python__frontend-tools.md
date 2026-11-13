@@ -83,6 +83,8 @@ as this guide uses it as a starting point.
         <Tabs groupId="language_microsoft-agent-framework_agent" items={['.NET', 'Python']} persist>
           <Tab value=".NET">
             ```csharp title="Program.cs"
+#pragma warning disable OPENAI001
+using Microsoft.Extensions.AI;
             using Microsoft.Agents.AI;
             using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
             using OpenAI;
@@ -97,7 +99,11 @@ as this guide uses it as a starting point.
 
             // Create the agent
             var agent = new OpenAIClient(openAiApiKey)
-                .GetChatClient("gpt-5.4-mini")
+                .GetChatClient("gpt-6-luna")
+    .AsIChatClient().AsBuilder()
+    .ConfigureOptions(options => options.RawRepresentationFactory = _ =>
+        new OpenAI.Chat.ChatCompletionOptions { ReasoningEffortLevel = new("none") })
+    .Build()
                 .AsAIAgent(name: "AGUIAssistant", instructions: "You are a helpful assistant.");
 
             // Map the AG-UI endpoint
@@ -123,14 +129,14 @@ as this guide uses it as a starting point.
                 if bool(os.getenv("AZURE_OPENAI_ENDPOINT")):
                     azure_api_key = os.getenv("AZURE_OPENAI_API_KEY")
                     return OpenAIChatClient(
-                        model=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "gpt-5.4-mini"),
+                        model=os.getenv("AZURE_OPENAI_CHAT_DEPLOYMENT_NAME", "gpt-6-luna"),
                         api_key=azure_api_key,
                         credential=None if azure_api_key else DefaultAzureCredential(),
                         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
                     )
                 if bool(os.getenv("OPENAI_API_KEY")):
                     return OpenAIChatClient(
-                        model=os.getenv("OPENAI_CHAT_MODEL_ID", "gpt-5.4-mini"),
+                        model=os.getenv("OPENAI_CHAT_MODEL_ID", "gpt-6-luna"),
                         api_key=os.getenv("OPENAI_API_KEY"),
                     )
                 raise RuntimeError("Set AZURE_OPENAI_ENDPOINT (uses az login unless AZURE_OPENAI_API_KEY is set) or OPENAI_API_KEY")
