@@ -291,13 +291,14 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/state-and-actions",
+        hasDemo: true,
         title: "Components · State and actions",
         docPath: "/ms-agent-python/generative-ui/components/state-and-actions",
         summary:
           "App state bound into props, functions run on click, events sent to the agent, and writable props that keep user input.",
-        status: "broken",
+        status: "partial",
         statusNote:
-          "Reference only, no backend. Every sample needs pieces the page never defines (Cart type and cart instance, ProductCard) or is a fragment (events, writable, function declarations), so nothing is mounted.",
+          "Mounted on the /components MAF agent: the page's live-state and on-click catalogs, with only the ProductCard the page never defines added. Not filled in: Cart/cart (so CartState and CartActions are not mounted: no cart state to bind, Add to cart returns its error); events/writable/declaration fragments shown only. render_ui reaches the model without its guide. Not browser-checked.",
       },
       {
         path: "/generative-ui/components/theming",
